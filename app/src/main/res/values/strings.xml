@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My Day</string>
+    <string name="kcal_cal">칼로리 계산</string>
 </resources>
