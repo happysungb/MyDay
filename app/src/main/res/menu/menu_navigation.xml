@@ -10,17 +10,17 @@
     <item
         android:id="@+id/navigation_kcal"
         android:icon="@drawable/check"
-        android:title="칼로리 계산"
+        android:title="식단 기록"
         app:showAsAction="always" />
     <item
         android:id="@+id/navigation_restaurant"
         android:icon="@drawable/fork"
-        android:title="근처 맛집 검색"
+        android:title="운동 기록"
         app:showAsAction="always" />
     <item
         android:id="@+id/navigation_news"
         android:icon="@drawable/news"
-        android:title="건강 뉴스"
+        android:title="근처 맛집 검색"
         app:showAsAction="always" />
 
 </menu>
