@@ -23,7 +23,4 @@
         android:text="100kcal"
         android:layout_marginLeft="16dp" />
 
-
-
-
 </LinearLayout>
