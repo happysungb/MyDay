@@ -1,5 +1,6 @@
 package com.example.myday
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,8 @@ import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myday.databinding.ActivityMainBinding
+import com.example.myday.databinding.FoodListBinding
+import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,12 +35,12 @@ class MainActivity : AppCompatActivity() {
         binding.kcalSearchBtn.setOnClickListener {
             val inputText = foodEditText.text.toString()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://openapi.foodsafetykorea.go.kr/api/27dfc35a066042d49e98/I2790/json/1/5/DESC_KOR=${inputText}/")
+                .baseUrl("https://openapi.foodsafetykorea.go.kr/api/27dfc35a066042d49e98/I2790/json/1/5/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
             val service = retrofit.create(GetKcalInfo::class.java)
-            val call = service.getNutritionData()
+            val call = service.getNutritionData(inputText)
 
             call.enqueue(object : Callback<FoodNutrition> {
                 override fun onResponse(
@@ -46,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     val body = response.body()
                     if (body != null && response.isSuccessful) {
+                        Log.v("retrofit", "success")
                         response.body()?.I2790?.row?.let {
                                 it1 -> initNutritionRecyclerView(it1)
                         }
@@ -64,14 +68,12 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
     fun initNutritionRecyclerView(foodNutritionList: MutableList<Row>){
-        Log.v("recycler", "succeed")
+        Log.v("NutritionList", foodNutritionList[0].DESC_KOR)
         adapter = NutritionAdapter()
         adapter.datas = foodNutritionList
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-
         binding.recyclerView.visibility = View.VISIBLE
     }
 
