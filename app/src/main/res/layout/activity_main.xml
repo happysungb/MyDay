@@ -10,78 +10,117 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
+        android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
-            <ImageButton
-                android:id="@+id/buttonOpenNav"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            tools:context=".MainActivity">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <ImageButton
+                    android:id="@+id/buttonOpenNav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/navigationview_button" />
+            </com.google.android.material.appbar.AppBarLayout>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/navigationview_button"
+                android:text="노은성님, 오늘 건강한 하루 보내셨나요?"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_margin="20dp"
                 />
-        </com.google.android.material.appbar.AppBarLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="노은성님, 오늘 건강한 하루 보내셨나요?"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_margin="20dp"
-            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="오늘은 무엇을 먹었나요?"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="20dp"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오늘은 무엇을 먹었나요?"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"
+                />
 
-        <EditText
-            android:id="@+id/food_et"
+            <EditText
+                android:id="@+id/food_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="먹은 음식의 이름을 입력해주세요."
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+            <Button
+                android:id="@+id/kcal_search_btn"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="칼로리 검색"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내가 추가한 음식"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_selected"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/background"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="먹은 음식의 이름을 입력해주세요."
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            />
-        <Button
-            android:id="@+id/kcal_search_btn"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:text="칼로리 검색"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="내가 추가한 음식"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="40dp"
-            />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_selected"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#DFEADE"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp">
-        </androidx.recyclerview.widget.RecyclerView>
-
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:background="@color/background">
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                >
+            </Spinner>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_gravity="center_vertical"
+                android:text="으로 먹은 음식을 기록할게요.">
+            </TextView>
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:background="@color/main_color"
+                android:text="다음"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20dp"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical">
+            </Button>
+        </LinearLayout>
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
