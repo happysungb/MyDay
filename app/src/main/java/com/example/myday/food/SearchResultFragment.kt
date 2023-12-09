@@ -2,7 +2,6 @@ package com.example.myday.food
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ class SearchResultFragment: Fragment() {
     private var _binding: RecyclerFragmentBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        Log.v("aqsw", "1")
         _binding = RecyclerFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -25,7 +23,6 @@ class SearchResultFragment: Fragment() {
         adapter.datas = requireArguments().getParcelableArrayList("resultList")!!
         binding.recyclerFragment.layoutManager  = LinearLayoutManager(activity)
         binding.recyclerFragment.adapter = adapter
-        Log.v("aqsw", "2")
     }
 
     override fun onDestroyView() {
