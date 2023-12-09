@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "456554284461",
+    "project_id": "my-day-e332c",
+    "storage_bucket": "my-day-e332c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456554284461:android:0f994a39118d4290ec4d24",
+        "android_client_info": {
+          "package_name": "com.example.myday"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2AmUeD4k_OsL9M6CRV31GQ-4FAMVKM5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
