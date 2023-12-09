@@ -16,10 +16,10 @@
             android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Bread"
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_marginTop="30dp"
-            android:text="Bread"
             android:layout_marginLeft="30dp" />
 
         <TextView
