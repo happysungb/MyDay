@@ -1,4 +1,4 @@
-package com.example.myday
+package com.example.myday.food
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import com.example.myday.databinding.FoodListBinding
 class NutritionAdapter: RecyclerView.Adapter<NutritionAdapter.MyNutritionViewHolder>() {
     var datas = mutableListOf<Row>()
     inner class MyNutritionViewHolder(private val binding: FoodListBinding): RecyclerView.ViewHolder(binding.root) {
+
         fun bind(data: Row) {
             Log.v("recyclerview", "bind")
             binding.foodName.text = data.DESC_KOR
@@ -17,12 +18,13 @@ class NutritionAdapter: RecyclerView.Adapter<NutritionAdapter.MyNutritionViewHol
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyNutritionViewHolder {
+        Log.v("aqsw", "3")
         val binding = FoodListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyNutritionViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyNutritionViewHolder, position: Int) {
-        Log.v("recyclerview", "onBindViewHolder")
+        Log.v("aqsw", "4")
         holder.bind(datas[position])
     }
 

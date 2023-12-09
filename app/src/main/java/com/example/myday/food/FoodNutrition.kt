@@ -1,15 +1,21 @@
-package com.example.myday
+package com.example.myday.food
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class FoodNutrition(
     val I2790: I2790
-)
+) : Parcelable
 
+@Parcelize
 data class I2790(
     val RESULT: RESULT,
     val row: MutableList<Row>,
     val total_count: String
-)
+) : Parcelable
 
+@Parcelize
 data class Row(
     val DESC_KOR: String,
     val FOOD_CD: String,
@@ -33,9 +39,10 @@ data class Row(
     val SERVING_SIZE: String,
     val SERVING_UNIT: String,
     val SUB_REF_NAME: String
-)
+) : Parcelable
 
+@Parcelize
 data class RESULT(
     val CODE: String,
     val MSG: String
-)
+) : Parcelable

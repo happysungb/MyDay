@@ -1,15 +1,18 @@
 package com.example.myday
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.core.view.GravityCompat
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
 import com.example.myday.databinding.ActivityMainBinding
-import com.example.myday.databinding.FoodListBinding
-import com.google.gson.GsonBuilder
+import com.example.myday.food.FoodNutrition
+import com.example.myday.food.GetKcalInfo
+import com.example.myday.food.NutritionAdapter
+import com.example.myday.food.Row
+import com.example.myday.food.SearchResultFragment
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,21 +21,24 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var mainBinding: ActivityMainBinding
     private lateinit var adapter: NutritionAdapter
+    private lateinit var foodNutritionList: MutableList<Row>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mainBinding.root)
 
-        val drawerLayout = binding.drawer
-        binding.buttonOpenNav.setOnClickListener {
+        // 메뉴바 버튼 클릭시
+        val drawerLayout = mainBinding.drawer
+        mainBinding.buttonOpenNav.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        val foodEditText = binding.foodEt
-        binding.kcalSearchBtn.setOnClickListener {
+        // 칼로리 검색 버튼 클릭시
+        val foodEditText = mainBinding.foodEt
+        mainBinding.kcalSearchBtn.setOnClickListener {
             val inputText = foodEditText.text.toString()
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://openapi.foodsafetykorea.go.kr/api/27dfc35a066042d49e98/I2790/json/1/5/")
@@ -49,9 +55,10 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     val body = response.body()
                     if (body != null && response.isSuccessful) {
-                        Log.v("retrofit", "success")
                         response.body()?.I2790?.row?.let {
-                                it1 -> initNutritionRecyclerView(it1)
+                                it1 ->
+                            foodNutritionList = it1
+                            initNutritionRecyclerView(savedInstanceState)
                         }
                     } else {
                         Log.v("retrofit", response.errorBody()?.string()!!)
@@ -65,18 +72,19 @@ class MainActivity : AppCompatActivity() {
                 }
             })
 
-
         }
     }
-    fun initNutritionRecyclerView(foodNutritionList: MutableList<Row>){
-        Log.v("NutritionList", foodNutritionList[0].DESC_KOR)
-        adapter = NutritionAdapter()
-        adapter.datas = foodNutritionList
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.visibility = View.VISIBLE
-    }
+    fun initNutritionRecyclerView(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            val bundle = Bundle()
+            bundle.putParcelableArrayList("resultList", ArrayList(foodNutritionList))
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                add<SearchResultFragment>(R.id.fragment_container, args = bundle)
+            }
+        }
 
+    }
 
 
 }
