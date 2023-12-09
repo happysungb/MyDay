@@ -10,15 +10,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        tools:context=".MainActivity">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            tools:context=".MainActivity">
-
+            android:orientation="vertical">
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -97,8 +95,7 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                >
+                android:layout_marginLeft="20dp">
             </Spinner>
             <TextView
                 android:layout_width="wrap_content"
@@ -108,6 +105,7 @@
                 android:text="으로 먹은 음식을 기록할게요.">
             </TextView>
             <Button
+                android:id="@+id/next_btn"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:background="@color/main_color"
@@ -133,6 +131,4 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/navigation_header"
         app:menu="@menu/navigation"/>
-
-
 </androidx.drawerlayout.widget.DrawerLayout>

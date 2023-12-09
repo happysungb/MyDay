@@ -1,5 +1,6 @@
 package com.example.myday
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
@@ -82,6 +83,9 @@ class MainActivity : AppCompatActivity(), DialogCallback {
                 }
             })
 
+        }
+        mainBinding.nextBtn.setOnClickListener {
+            //
         }
 
     }
