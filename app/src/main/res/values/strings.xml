@@ -2,6 +2,7 @@
     <string name="app_name">My Day</string>
     <string name="kcal_cal">칼로리 계산</string>
 
+
     <string-array name="when">
         <item>아침</item>
         <item>점심</item>
@@ -9,4 +10,6 @@
         <item>간식</item>
         <item>야식</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

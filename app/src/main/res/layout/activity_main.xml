@@ -12,20 +12,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".MainActivity">
+
+        <include layout="@layout/appbar"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <ImageButton
-                    android:id="@+id/buttonOpenNav"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/navigationview_button" />
-            </com.google.android.material.appbar.AppBarLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,10 +64,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="내가 추가한 음식"
-                android:textSize="30sp"
-                android:textStyle="bold"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:textStyle="normal"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="50dp"
                 />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_selected"
@@ -84,6 +80,7 @@
                 android:layout_marginRight="30dp">
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -101,6 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
+                android:textColor="@color/black"
                 android:layout_gravity="center_vertical"
                 android:text="으로 먹은 음식을 기록할게요.">
             </TextView>
@@ -126,6 +124,7 @@
     </FrameLayout>
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"

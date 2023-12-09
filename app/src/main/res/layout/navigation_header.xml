@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:gravity="bottom"
         android:layout_marginStart="30dp"
-        android:text="이메일"
-        android:textSize="20dp"
+        android:text="2011440@sookmyung.ac.kr"
+        android:textSize="18sp"
         android:textColor="@color/black"
         />
 

@@ -13,12 +13,12 @@
         android:title="식단 기록"
         app:showAsAction="always" />
     <item
-        android:id="@+id/navigation_restaurant"
+        android:id="@+id/navigation_health"
         android:icon="@drawable/fork"
         android:title="운동 기록"
         app:showAsAction="always" />
     <item
-        android:id="@+id/navigation_news"
+        android:id="@+id/navigation_restaurant"
         android:icon="@drawable/news"
         android:title="근처 맛집 검색"
         app:showAsAction="always" />

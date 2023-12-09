@@ -3,8 +3,11 @@ package com.example.myday
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.add
@@ -18,6 +21,7 @@ import com.example.myday.food.Row
 import com.example.myday.food.SearchResultFragment
 import com.example.myday.food.Selected
 import com.example.myday.food.SelectedAdapter
+import com.google.android.material.navigation.NavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,7 +29,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class MainActivity : AppCompatActivity(), DialogCallback {
+class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var foodNutritionList: MutableList<Row>
@@ -36,11 +40,18 @@ class MainActivity : AppCompatActivity(), DialogCallback {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
+        // Toolbar 설정
+        val toolbar: Toolbar = findViewById(R.id.toolbar) // appbar.xml에 있는 Toolbar ID
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "식단 기록"
+
         // 메뉴바 버튼 클릭시
-        val drawerLayout = mainBinding.drawer
-        mainBinding.buttonOpenNav.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
+        toolbar.setNavigationOnClickListener {
+            mainBinding.drawer.openDrawer(GravityCompat.START)
         }
+
+        // NavigationView 리스너 설정
+        mainBinding.navView.setNavigationItemSelectedListener(this)
 
         // 칼로리 검색 버튼 클릭시
         val foodEditText = mainBinding.foodEt
@@ -89,7 +100,19 @@ class MainActivity : AppCompatActivity(), DialogCallback {
         }
 
     }
-
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.navigation_mypage -> {
+                // 마이페이지 액티비티로 이동
+                val intent = Intent(this, MyPageActivity::class.java)
+                startActivity(intent)
+            }
+            // 다른 메뉴 아이템 ID에 대한 케이스
+        }
+        // 아이템 클릭 후 드로어 닫기
+        mainBinding.drawer.closeDrawer(GravityCompat.START)
+        return true
+    }
     // 섭취량 선택후 확인 버튼 클릭시
     override fun onConfirm(name: String, kcal: Int, count: Int) {
         selected.add(Selected(name, kcal, count))
