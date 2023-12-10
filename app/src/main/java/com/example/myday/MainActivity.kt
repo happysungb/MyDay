@@ -17,7 +17,6 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myday.databinding.ActivityMainBinding
-import com.example.myday.food.CalcKcalActivity
 import com.example.myday.food.DialogCallback
 import com.example.myday.food.FoodNutrition
 import com.example.myday.food.GetKcalInfo
