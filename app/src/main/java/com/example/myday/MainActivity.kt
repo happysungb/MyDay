@@ -1,5 +1,7 @@
 package com.example.myday
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -56,6 +58,11 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
         // NavigationView 리스너 설정
         mainBinding.navView.setNavigationItemSelectedListener(this)
 
+        // EditView의 바깥 부분 클릭시 키보드 숨기기
+        mainBinding.mainLayout.setOnTouchListener { v, event ->
+            hideKeyboard(this)
+            false
+        }
         // Spinner 설정(아침, 점심, 저녁, 야식, 간식 중 선택)
         val spinner: Spinner = mainBinding.spinner
         ArrayAdapter.createFromResource(
@@ -163,6 +170,15 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
                 addToBackStack(null)
                 add<SearchResultFragment>(R.id.fragment_container, args = bundle)
             }
+        }
+    }
+
+    // 키보드 숨기기
+    private fun hideKeyboard(activity: Activity) {
+        val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val currentFocusedView = activity.currentFocus
+        currentFocusedView?.let {
+            inputMethodManager.hideSoftInputFromWindow(currentFocusedView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         }
     }
 
