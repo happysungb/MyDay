@@ -181,7 +181,4 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
         }
     }
 
-
-
-
 }
