@@ -129,9 +129,9 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
                     "야식" -> Time.SUPPER
                     else -> Time.SNACK
                 }
-                val intent = Intent(this, CalcKcalActivity::class.java)
+                val intent = Intent(this, MyPageActivity::class.java)
                 intent.putExtra("selectedList", ArrayList(selected))
-//                intent.putExtra("time", time)
+                intent.putExtra("time", time)
 //                startActivity(intent)
             }
         }
