@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<GridLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_marginTop="30dp">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="300dp"
-        android:layout_height="80dp"
-        android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="left"
+        android:layout_marginStart="40dp">
 
         <TextView
             android:id="@+id/food_name"
-            android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bread"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp" />
+             />
 
         <TextView
             android:id="@+id/food_kcal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="100kcal"
-            android:layout_marginLeft="20dp" />
-
-
+            android:text="100kcal" />
     </LinearLayout>
     <Button
         android:id="@+id/food_select_btn"
+        android:layout_gravity="right"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:background="@color/main_color"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:layout_marginTop="30dp"
+        android:layout_marginEnd="40dp"
         android:text="선택">
     </Button>
-</LinearLayout>
+</GridLayout>

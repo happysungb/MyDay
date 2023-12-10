@@ -12,11 +12,12 @@
         android:textStyle="bold"
         android:textSize="20dp"
         />
-
     <EditText
+        android:id="@+id/user_name"
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,11 +27,12 @@
         android:textStyle="bold"
         android:textSize="20dp"
         />
-
     <EditText
+        android:id="@+id/email"
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,11 +42,12 @@
         android:textStyle="bold"
         android:textSize="20dp"
         />
-
     <EditText
+        android:id="@+id/password"
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,11 +57,11 @@
         android:textStyle="bold"
         android:textSize="20dp"
         />
-
     <EditText
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,12 +71,24 @@
         android:textStyle="bold"
         android:textSize="20dp"
         />
-
-    <EditText
+    <RadioGroup
         android:id="@+id/gender"
-        android:layout_width="391dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"/>
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여자"
+            android:layout_marginLeft="10dp"/>
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="남자"
+            android:layout_marginLeft="10dp"/>
+    </RadioGroup>
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,10 +99,18 @@
         android:textStyle="bold"
         android:textSize="20dp"
         />
+    <NumberPicker
+        android:id="@+id/height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </NumberPicker>
 
-    <EditText
-        android:layout_width="121dp"
+    <Button
+        android:id="@+id/join_btn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="회원가입"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp" />
 
 

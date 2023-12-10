@@ -29,7 +29,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".food.CalcKcalActivity"
+            android:name=".user.MakeNewUserActivity"
+            android:exported="true" />
+        <activity
+            android:name=".user.SignUpActivity"
             android:exported="true" />
     </application>
 
