@@ -4,6 +4,6 @@
     android:id="@+id/recycler_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DFEADE"
+    android:background="@color/white"
     >
 </androidx.recyclerview.widget.RecyclerView>
