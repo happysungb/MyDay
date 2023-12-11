@@ -7,29 +7,32 @@
     >
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:src="@drawable/ellie"
         android:layout_marginStart="30dp"
         android:layout_marginTop="80dp"
-        android:src="@drawable/ic_launcher_background"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:padding="30dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
         android:text="노은성"
-        android:textSize="30dp"
+        android:textSize="25sp"
         android:textColor="@color/black"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="30dp"
+        android:layout_marginBottom="15dp"
         android:text="2011440@sookmyung.ac.kr"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textColor="@color/black"
         />
 
