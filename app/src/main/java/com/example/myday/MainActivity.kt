@@ -158,7 +158,10 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
                 val intent = Intent(this, MyPageActivity::class.java)
                 startActivity(intent)
             }
-            // 다른 메뉴 아이템 ID에 대한 케이스
+            R.id.navigation_health -> {
+                val intent = Intent(this, ExerciseActivity::class.java)
+                startActivity(intent)
+            }
         }
         // 아이템 클릭 후 드로어 닫기
         mainBinding.drawer.closeDrawer(GravityCompat.START)

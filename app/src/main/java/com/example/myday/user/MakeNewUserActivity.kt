@@ -12,36 +12,46 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 
 class MakeNewUserActivity : AppCompatActivity(){
-    lateinit var auth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-        val intent = Intent()
-        intent.getStringExtra("email")?.let {
-            intent.getStringExtra("password")?.let {
-                createNewUser(it, it)
-            }
+
+        val email = intent.getStringExtra("email")
+        val password = intent.getStringExtra("password")
+
+        if (email != null && password != null) {
+            createNewUser(email, password)
         }
 
+        val name = intent.getStringExtra("name")
+        val gender = intent.getStringExtra("gender")
+        val height = intent.getStringExtra("height")
+        val weight = intent.getStringExtra("weight")
+
+        Log.d("MakeNewUserActivity", "Name: $name, Gender: $gender, Height: $height, Weight: $weight")
     }
 
     private fun createNewUser(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task: Task<AuthResult> ->
-            if (task.isSuccessful) {
-                auth.currentUser?.sendEmailVerification()
-                    ?.addOnCompleteListener {
-                        sendTask ->
-                        if (sendTask.isSuccessful) {
-                            Log.d("JoinActivity", "Email sent.")
-                        } else {
-                            Log.d("JoinActivity", "Email not sent.")
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // 사용자 계정 생성에 성공한 경우
+                    auth.currentUser?.sendEmailVerification()
+                        ?.addOnCompleteListener { verificationTask ->
+                            if (verificationTask.isSuccessful) {
+                                // 이메일 인증 메일 전송 성공
+                                Log.d("JoinActivity", "Email sent.")
+                            } else {
+                                // 이메일 인증 메일 전송 실패
+                                Log.d("JoinActivity", "Email not sent.")
+                            }
                         }
-                    }
-            } else {
-                Log.v("createUserWithEmail:failure", task.exception.toString())
+                } else {
+                    // 사용자 계정 생성 실패
+                    Log.v("createUserWithEmail:failure", task.exception.toString())
+                }
             }
-        }
     }
 }

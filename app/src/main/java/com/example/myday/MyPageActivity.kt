@@ -67,6 +67,10 @@ class MyPageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                 startActivity(intent)
             }
+            R.id.navigation_health -> {
+                val intent = Intent(this, ExerciseActivity::class.java)
+                startActivity(intent)
+            }
         }
         // 아이템 클릭 후 드로어 닫기
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)

@@ -12,14 +12,28 @@ class SignUpActivity : AppCompatActivity() {
         binding = MemberPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.weight.apply {
+            minValue = 30  // 최소 몸무게 30kg 설정
+            maxValue = 200 // 최대 몸무게 200kg 설정
+            wrapSelectorWheel = false
+        }
+
+        binding.height.apply {
+            minValue = 100
+            maxValue = 250
+            wrapSelectorWheel = false
+        }
+
         binding.joinBtn.setOnClickListener {
             val userInfo = getUserInfo()
-            val intent = Intent(this, MakeNewUserActivity::class.java)
-            intent.putExtra("name", userInfo["name"].toString())
-            intent.putExtra("email", userInfo["email"].toString())
-            intent.putExtra("password", userInfo["password"].toString())
-            intent.putExtra("gender", userInfo["gender"].toString())
-            intent.putExtra("height", userInfo["height"].toString())
+            val intent = Intent(this, MakeNewUserActivity::class.java).apply {
+                putExtra("name", userInfo["name"].toString())
+                putExtra("email", userInfo["email"].toString())
+                putExtra("password", userInfo["password"].toString())
+                putExtra("gender", userInfo["gender"].toString())
+                putExtra("height", userInfo["height"].toString())
+                putExtra("weight", userInfo["weight"].toString())
+            }
             startActivity(intent)
         }
     }
@@ -33,10 +47,9 @@ class SignUpActivity : AppCompatActivity() {
             binding.female.isChecked -> "Female"
             else -> "Male"
         }
-        val np = binding.height
-        np.minValue = 100
-        np.maxValue = 250
-        info["height"] = np.value.toString()
+        info["height"] = binding.height.value.toString()
+        info["weight"] = binding.weight.value.toString()
+
         return info
     }
 }
