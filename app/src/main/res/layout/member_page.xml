@@ -9,7 +9,7 @@
         android:text="이름"
         android:layout_marginTop="30dp"
         android:layout_marginStart="10dp"
-        android:fontFamily="@font/snowflake_Regular"
+        android:fontFamily="@font/snowflake_regular"
         android:textStyle="bold"
         android:textSize="20sp"
         />
@@ -27,7 +27,7 @@
         android:text="이메일"
         android:layout_marginTop="30dp"
         android:layout_marginStart="10dp"
-        android:fontFamily="@font/snowflake_Regular"
+        android:fontFamily="@font/snowflake_regular"
         android:textStyle="bold"
         android:textSize="20sp"
         />
@@ -45,7 +45,7 @@
         android:text="비밀번호"
         android:layout_marginTop="30dp"
         android:layout_marginStart="10dp"
-        android:fontFamily="@font/snowflake_Regular"
+        android:fontFamily="@font/snowflake_regular"
         android:textStyle="bold"
         android:textSize="20sp"
         />
@@ -63,7 +63,7 @@
         android:text="비밀번호 확인"
         android:layout_marginTop="30dp"
         android:layout_marginStart="10dp"
-        android:fontFamily="@font/snowflake_Regular"
+        android:fontFamily="@font/snowflake_regular"
         android:textStyle="bold"
         android:textSize="20sp"
         />
@@ -80,7 +80,7 @@
         android:text="성별"
         android:layout_marginTop="30dp"
         android:layout_marginStart="10dp"
-        android:fontFamily="@font/snowflake_Regular"
+        android:fontFamily="@font/snowflake_regular"
         android:textStyle="bold"
         android:textSize="20sp"
         />
@@ -94,13 +94,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="여자"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginStart="10dp"/>
         <RadioButton
             android:id="@+id/male"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="남자"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginStart="10dp"/>
     </RadioGroup>
 
     <TextView
@@ -109,7 +109,7 @@
         android:text="키"
         android:layout_marginTop="30dp"
         android:layout_marginStart="10dp"
-        android:fontFamily="@font/snowflake_Regular"
+        android:fontFamily="@font/snowflake_regular"
         android:textStyle="bold"
         android:textSize="20sp"/>
     <NumberPicker

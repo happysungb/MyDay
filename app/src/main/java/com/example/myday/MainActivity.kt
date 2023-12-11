@@ -143,14 +143,14 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        val currentUser = auth.currentUser
-        if (currentUser === null) {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        val currentUser = auth.currentUser
+//        if (currentUser === null) {
+//            val intent = Intent(this, LoginActivity::class.java)
+//            startActivity(intent)
+//        }
+//    }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navigation_mypage -> {
