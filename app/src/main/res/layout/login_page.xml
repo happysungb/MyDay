@@ -22,6 +22,7 @@
             android:layout_marginStart="10dp"
             android:text="My Day"
             android:fontFamily="@font/snowflake_bold"
+            android:textColor="@color/black"
             android:textSize="50dp" />
     </LinearLayout>
 
@@ -31,7 +32,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:text="아이디"
-        android:fontFamily="@font/snowflake_bold"
+        android:fontFamily="@font/snowflake_regular"
+        android:textColor="@color/black"
         android:textSize="20dp"
         />
 
@@ -48,7 +50,8 @@
         android:layout_marginTop="30dp"
         android:layout_marginStart="20dp"
         android:text="비밀번호"
-        android:fontFamily="@font/snowflake_bold"
+        android:fontFamily="@font/snowflake_regular"
+        android:textColor="@color/black"
         android:textSize="20dp"
         />
 
@@ -86,7 +89,7 @@
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
         android:background="@drawable/login_button"
-        android:textSize="15sp"
+        android:textSize="16sp"
         android:text="로그인"
         android:fontFamily="@font/snowflake_regular" />
     <ImageView
@@ -97,6 +100,7 @@
         android:src="@drawable/line"
         />
 
+<!--
     <Button
         android:layout_width="380dp"
         android:layout_height="50dp"
@@ -116,16 +120,17 @@
         android:layout_gravity="center"
         android:src="@drawable/line2"
         android:layout_marginTop="10dp"/>
-
+-->
     <Button
         android:id="@+id/join_btn"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/join_button"
         android:text="My Day 계정 만들기"
-        android:fontFamily="@font/snowflake_regular"
-        android:textSize="13sp"
+        android:fontFamily="@font/snowflake_bold"
+        android:textSize="16sp"
         android:textColor="@color/main_color"
         />
 
