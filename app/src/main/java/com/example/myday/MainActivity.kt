@@ -25,7 +25,9 @@ import com.example.myday.food.SearchResultFragment
 import com.example.myday.food.Selected
 import com.example.myday.food.SelectedAdapter
 import com.example.myday.food.Time
+import com.example.myday.user.LoginActivity
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,12 +39,15 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
 
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var foodNutritionList: MutableList<Row>
+    private lateinit var auth: FirebaseAuth
+
     private val selected: MutableList<Selected> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
+        auth = FirebaseAuth.getInstance()
 
         // Toolbar 설정
         val toolbar: Toolbar = findViewById(R.id.toolbar) // appbar.xml에 있는 Toolbar ID
@@ -132,10 +137,19 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
                 val intent = Intent(this, MyPageActivity::class.java)
                 intent.putExtra("selectedList", ArrayList(selected))
                 intent.putExtra("time", time)
-//                startActivity(intent)
+                startActivity(intent)
             }
         }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        if (currentUser === null) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
