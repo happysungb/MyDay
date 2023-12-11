@@ -93,13 +93,17 @@
             android:id="@+id/female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/snowflake_regular"
             android:text="여자"
+            android:textSize="18sp"
             android:layout_marginStart="10dp"/>
         <RadioButton
             android:id="@+id/male"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/snowflake_regular"
             android:text="남자"
+            android:textSize="18sp"
             android:layout_marginStart="10dp"/>
     </RadioGroup>
 
