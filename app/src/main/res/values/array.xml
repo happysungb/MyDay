@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="exercise1">
+        <item>천천히 걷기</item>
+        <item>강아지 산책시키기</item>
+        <item>조깅하기</item>
+        <item>자전거 타기</item>
+        <item>수영하기</item>
+        <item>테니스/스쿼시</item>
+        <item>계단오르기</item>
+        <item>달리기</item>
+    </string-array>
+
+    <string-array name="time1">
+        <item>10분</item>
+        <item>20분</item>
+        <item>30분</item>
+        <item>40분</item>
+        <item>50분</item>
+        <item>60분</item>
+        <item>70분</item>
+        <item>80분</item>
+        <item>90분</item>
+    </string-array>
+</resources>
