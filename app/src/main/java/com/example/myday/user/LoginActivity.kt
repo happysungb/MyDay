@@ -44,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
                             val userName = document.getString("name")
                             val intent = Intent(this, MainActivity::class.java)
                             intent.putExtra("userName", userName)
+                            intent.putExtra("userEmail",email)
                             startActivity(intent)
                             finish()
                         }

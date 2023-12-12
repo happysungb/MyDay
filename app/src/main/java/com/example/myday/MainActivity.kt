@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +26,6 @@ import com.example.myday.food.SearchResultFragment
 import com.example.myday.food.Selected
 import com.example.myday.food.SelectedAdapter
 import com.example.myday.food.Time
-import com.example.myday.user.LoginActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
@@ -50,7 +50,17 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
         auth = FirebaseAuth.getInstance()
 
         val userName = intent.getStringExtra("userName") ?: "사용자" //userName이 null이면 "사용자"로 표시
+        val userEmail = intent.getStringExtra("userEmail") ?: "이메일 없음"
+
         mainBinding.mainGreeting.text = "${userName}님, 오늘 건강한 하루 보내셨나요?"
+
+        val navigationViewHeader = mainBinding.navView.getHeaderView(0)
+        val userNameTextView = navigationViewHeader.findViewById<TextView>(R.id.navName)
+        val emailTextView = navigationViewHeader.findViewById<TextView>(R.id.navEmail)
+
+        userNameTextView.text = userName
+        emailTextView.text = userEmail
+
 
         // Toolbar 설정
         val toolbar: Toolbar = findViewById(R.id.toolbar) // appbar.xml에 있는 Toolbar ID
