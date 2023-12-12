@@ -171,11 +171,14 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
             R.id.navigation_mypage -> {
                 // 마이페이지 액티비티로 이동
                 val intent = Intent(this, MyPageActivity::class.java)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userEmail",userEmail)
                 startActivity(intent)
             }
             R.id.navigation_health -> {
                 val intent = Intent(this, ExerciseActivity::class.java)
                 intent.putExtra("userName", userName)
+                intent.putExtra("userEmail",userEmail)
                 startActivity(intent)
             }
         }
