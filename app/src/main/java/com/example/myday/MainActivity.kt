@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
         setContentView(mainBinding.root)
         auth = FirebaseAuth.getInstance()
 
+        val userName = intent.getStringExtra("userName") ?: "사용자" //userName이 null이면 "사용자"로 표시
+        mainBinding.mainGreeting.text = "${userName}님, 오늘 건강한 하루 보내셨나요?"
+
         // Toolbar 설정
         val toolbar: Toolbar = findViewById(R.id.toolbar) // appbar.xml에 있는 Toolbar ID
         setSupportActionBar(toolbar)
