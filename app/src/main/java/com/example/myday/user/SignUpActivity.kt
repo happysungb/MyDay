@@ -2,11 +2,16 @@ package com.example.myday.user
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myday.databinding.MemberPageBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: MemberPageBinding
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MemberPageBinding.inflate(layoutInflater)
@@ -25,32 +30,65 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.joinBtn.setOnClickListener {
-            val userInfo = getUserInfo()
-            val intent = Intent(this, MakeNewUserActivity::class.java).apply {
-                putExtra("name", userInfo["name"].toString())
-                putExtra("email", userInfo["email"].toString())
-                putExtra("password", userInfo["password"].toString())
-                putExtra("gender", userInfo["gender"].toString())
-                putExtra("height", userInfo["height"].toString())
-                putExtra("weight", userInfo["weight"].toString())
-            }
-            startActivity(intent)
+            Log.v("aqsw", binding.email.text.toString())
+            Log.v("aqsw", binding.userName.text.toString())
+            Log.v("aqsw", binding.password.text.toString())
+            Log.v("aqsw", binding.height.value.toString())
+            Log.v("aqsw", binding.weight.value.toString())
+            auth = FirebaseAuth.getInstance()
+            createUser(
+                UserDto(
+                    name = binding.userName.text.toString(),
+                    email = binding.email.text.toString(),
+                    password = binding.password.text.toString(),
+                    gender =  when {
+                        binding.female.isChecked -> Gender.FEMALE
+                        else -> Gender.MALE
+                    },
+                    height = binding.height.value,
+                    weight = binding.weight.value
+                )
+            )
+
+
         }
     }
 
-    private fun getUserInfo(): MutableMap<String, String> {
-        val info = mutableMapOf<String, String>()
-        info["name"] = binding.userName.text.toString()
-        info["email"] = binding.email.text.toString()
-        info["password"] = binding.password.text.toString()
-        info["gender"] = when {
-            binding.female.isChecked -> "Female"
-            else -> "Male"
+    private fun createUser(userDto: UserDto) {
+        userDto.email?.let {
+            userDto.password?.let { it1 ->
+                auth.createUserWithEmailAndPassword(it, it1)
+                    .addOnCompleteListener(this) {
+                        task ->
+                        if (task.isSuccessful) {
+                            Log.v("SignUpActivity", "Successfully created user with uid: ${task.result?.user?.uid}")
+                            saveUserIntoDB(userDto)
+                        } else {
+                            Log.v("SignUpActivity", "Failed to create user: ${task.exception}")
+                        }
+                    }
+            }
         }
-        info["height"] = binding.height.value.toString()
-        info["weight"] = binding.weight.value.toString()
+    }
+    private fun saveUserIntoDB(userDto: UserDto) {
+        val userId = auth.currentUser?.uid
+        if (userDto!= null) {
+            userDto.email?.let {
+                FirebaseFirestore.getInstance()
+                    .collection("User")
+                    .document(it)
+                    .set(userDto)
+                    .addOnSuccessListener {
+                        val intent = Intent(this, LoginActivity::class.java)
+                        Log.v("SignUpActivity", "Successfully saved user info")
+                        startActivity(intent)
+                    }
+                    .addOnFailureListener {
+                        Log.v("SignUpActivity", "Failed to save user info: ${it.message}")
+                    }
+            }
+        }
 
-        return info
     }
 }
 
