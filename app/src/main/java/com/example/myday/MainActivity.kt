@@ -38,10 +38,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var mainBinding: ActivityMainBinding
-    private lateinit var foodNutritionList: MutableList<Row>
     private lateinit var auth: FirebaseAuth
+    private lateinit var userName: String
+    private lateinit var userEmail: String
 
     private val selected: MutableList<Selected> = mutableListOf()
+    private lateinit var foodNutritionList: MutableList<Row>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +51,8 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
         setContentView(mainBinding.root)
         auth = FirebaseAuth.getInstance()
 
-        val userName = intent.getStringExtra("userName") ?: "사용자" //userName이 null이면 "사용자"로 표시
-        val userEmail = intent.getStringExtra("userEmail") ?: "이메일 없음"
+        userName = intent.getStringExtra("userName") ?: "사용자" //userName이 null이면 "사용자"로 표시
+        userEmail = intent.getStringExtra("userEmail") ?: "이메일 없음"
 
         mainBinding.mainGreeting.text = "${userName}님, 오늘 건강한 하루 보내셨나요?"
 
@@ -173,6 +175,7 @@ class MainActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavig
             }
             R.id.navigation_health -> {
                 val intent = Intent(this, ExerciseActivity::class.java)
+                intent.putExtra("userName", userName)
                 startActivity(intent)
             }
         }

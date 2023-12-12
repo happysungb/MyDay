@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -18,6 +19,11 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
+
+        val userName = intent.getStringExtra("userName") ?: "사용자"
+
+        val greetingTextView = findViewById<TextView>(R.id.exerciseGreeting)
+        greetingTextView.text = "${userName}님, 운동하기 좋은 날이에요!"
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
