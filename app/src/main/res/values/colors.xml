@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="trans">#002196F3</color>
     <color name="night_background">#222222</color>
+    <color name="main_dark">#588F3B</color>
     <color name="main_color">#89BC6D</color>
     <color name="background">#DFEADE</color>
     <color name="menu">#F1F1F1</color>

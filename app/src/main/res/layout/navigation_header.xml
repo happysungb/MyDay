@@ -7,33 +7,41 @@
     >
 
     <ImageView
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
         android:src="@drawable/ellie"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
         />
 
     <TextView
         android:id="@+id/navName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="30dp"
-        android:textSize="25sp"
+        android:textSize="18sp"
         android:textColor="@color/black"
         />
     <TextView
         android:id="@+id/navEmail"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="15dp"
-        android:textSize="15sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:textSize="13sp"
         android:textColor="@color/black"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="15dp"
+        android:text="목표 칼로리: 000 kcal"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
 
 </LinearLayout>
