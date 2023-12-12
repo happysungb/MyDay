@@ -30,6 +30,11 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.joinBtn.setOnClickListener {
+            Log.v("aqsw", binding.email.text.toString())
+            Log.v("aqsw", binding.userName.text.toString())
+            Log.v("aqsw", binding.password.text.toString())
+            Log.v("aqsw", binding.height.value.toString())
+            Log.v("aqsw", binding.weight.value.toString())
             auth = FirebaseAuth.getInstance()
             createUser(
                 UserDto(
@@ -56,6 +61,7 @@ class SignUpActivity : AppCompatActivity() {
                     .addOnCompleteListener(this) {
                         task ->
                         if (task.isSuccessful) {
+                            Log.v("SignUpActivity", "Successfully created user with uid: ${task.result?.user?.uid}")
                             saveUserIntoDB(userDto)
                         } else {
                             Log.v("SignUpActivity", "Failed to create user: ${task.exception}")
@@ -74,6 +80,7 @@ class SignUpActivity : AppCompatActivity() {
                     .set(userDto)
                     .addOnSuccessListener {
                         val intent = Intent(this, LoginActivity::class.java)
+                        Log.v("SignUpActivity", "Successfully saved user info")
                         startActivity(intent)
                     }
                     .addOnFailureListener {
