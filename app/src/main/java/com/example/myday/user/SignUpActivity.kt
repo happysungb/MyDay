@@ -30,11 +30,6 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.joinBtn.setOnClickListener {
-            Log.v("aqsw", binding.email.text.toString())
-            Log.v("aqsw", binding.userName.text.toString())
-            Log.v("aqsw", binding.password.text.toString())
-            Log.v("aqsw", binding.height.value.toString())
-            Log.v("aqsw", binding.weight.value.toString())
             auth = FirebaseAuth.getInstance()
             createUser(
                 UserDto(
