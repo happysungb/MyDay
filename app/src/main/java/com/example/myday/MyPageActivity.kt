@@ -4,51 +4,54 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.CalendarView
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import com.example.myday.food.FoodPageActivity
+import com.example.myday.databinding.ActivityMyPageBinding
 import com.google.android.material.navigation.NavigationView
 import java.time.LocalDate
 
 class MyPageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
+    private lateinit var binding: ActivityMyPageBinding
+    private lateinit var userName: String
+    private lateinit var userEmail: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_page)
+        binding = ActivityMyPageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        userName = intent.getStringExtra("userName") ?: "사용자"
+        userEmail = intent.getStringExtra("userEmail") ?: "이메일 없음"
+
+        val navigationViewHeader = binding.navView.getHeaderView(0)
+        navigationViewHeader.findViewById<TextView>(R.id.navName).text = userName
+        navigationViewHeader.findViewById<TextView>(R.id.navEmail).text = userEmail
+
+        //toolbar 설정
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "My Kcal Calendar"
+        supportActionBar?.title = "${userName}'s Kcal Calendar"
+
         // CalendarView 설정
-        val calendarView: CalendarView = findViewById(R.id.calendarView)
-
-        // 오늘 날짜로 캘린더 뷰 설정
-        calendarView.date = System.currentTimeMillis()
-
-        // 날짜 변경 리스너 설정
-        calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            // 날짜가 선택되었을 때 실행할 코드
-            val date = LocalDate.of(year, month + 1, dayOfMonth) // LocalDate를 사용하여 날짜 객체 생성
-            displayRecordsForDate(date)
+        binding.calendarView.apply {
+            date = System.currentTimeMillis()
+            setOnDateChangeListener { view, year, month, dayOfMonth ->
+                val date = LocalDate.of(year, month + 1, dayOfMonth)
+                displayRecordsForDate(date)
+            }
         }
-
-        // 처음 액티비티가 시작될 때 오늘 날짜에 대한 기록을 표시
-        val today = LocalDate.now()
-        displayRecordsForDate(today)
-
-        // DrawerLayout 참조
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout) // DrawerLayout의 ID 확인 필요
 
         // 네비게이션 버튼
         toolbar.setNavigationOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
+            binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
         // NavigationView 리스너 설정
-        val navigationView: NavigationView = findViewById(R.id.navView) // NavigationView의 ID 확인 필요
-        navigationView.setNavigationItemSelectedListener(this)
+        binding.navView.setNavigationItemSelectedListener(this)
+
+        // 처음 액티비티가 시작될 때 오늘 날짜에 대한 기록을 표시
+        displayRecordsForDate(LocalDate.now())
     }
 
     private fun displayRecordsForDate(date: LocalDate) {
@@ -59,9 +62,7 @@ class MyPageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navigation_mypage -> {
-                // 마이페이지 액티비티로 이동
-                val intent = Intent(this, MyPageActivity::class.java)
-                startActivity(intent)
+                //
             }
             R.id.navigation_kcal -> {
                 val intent = Intent(this, FoodPageActivity::class.java)
@@ -70,12 +71,13 @@ class MyPageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
             R.id.navigation_health -> {
                 val intent = Intent(this, ExerciseActivity::class.java)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userEmail",userEmail)
                 startActivity(intent)
             }
         }
         // 아이템 클릭 후 드로어 닫기
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        drawerLayout.closeDrawer(GravityCompat.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 

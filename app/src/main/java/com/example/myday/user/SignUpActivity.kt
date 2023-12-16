@@ -65,6 +65,7 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun saveUserIntoDB(userDto: UserDto) {
         val userId = auth.currentUser?.uid
         if (userDto!= null) {

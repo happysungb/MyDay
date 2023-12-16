@@ -4,8 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myday.databinding.ActivityMainBinding
-import com.example.myday.user.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
+
+import com.example.myday.user.LoginActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

@@ -8,33 +8,44 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.myday.food.FoodPageActivity
+import com.example.myday.databinding.ActivityExerciseBinding
 import com.google.android.material.navigation.NavigationView
 
 class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
+    private lateinit var binding: ActivityExerciseBinding
+    private lateinit var userName: String
+    private lateinit var userEmail: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_exercise)
+        binding = ActivityExerciseBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        userName = intent.getStringExtra("userName") ?: "사용자"
+        userEmail = intent.getStringExtra("userEmail") ?: "이메일 없음"
+
+        val navigationViewHeader = binding.navView.getHeaderView(0)
+        navigationViewHeader.findViewById<TextView>(R.id.navName).text = userName
+        navigationViewHeader.findViewById<TextView>(R.id.navEmail).text = userEmail
+
+        val greetingTextView = findViewById<TextView>(R.id.exerciseGreeting)
+        greetingTextView.text = "${userName}님, 운동하기 좋은 날이에요!"
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "운동 기록"
 
-        // DrawerLayout 참조
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)
-
         // 네비게이션 버튼
         toolbar.setNavigationOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
+            binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
         // NavigationView 리스너 설정
-        val navigationView: NavigationView = findViewById(R.id.navView)
-        navigationView.setNavigationItemSelectedListener(this)
+        binding.navView.setNavigationItemSelectedListener(this)
 
         //Spinner_exercise1 설정
         val spinner_exercise1: Spinner = findViewById(R.id.spinner_exercise1)
@@ -229,6 +240,8 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             R.id.navigation_mypage -> {
                 // 마이페이지 액티비티로 이동
                 val intent = Intent(this, MyPageActivity::class.java)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userEmail",userEmail)
                 startActivity(intent)
             }
             R.id.navigation_kcal -> {
