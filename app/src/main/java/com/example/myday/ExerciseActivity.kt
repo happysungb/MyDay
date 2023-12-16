@@ -12,8 +12,8 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.myday.food.FoodPageActivity
 import com.example.myday.databinding.ActivityExerciseBinding
-import com.example.myday.databinding.ActivityMyPageBinding
 import com.google.android.material.navigation.NavigationView
 
 class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -245,7 +245,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 startActivity(intent)
             }
             R.id.navigation_kcal -> {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, FoodPageActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                 startActivity(intent)
             }

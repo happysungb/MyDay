@@ -1,51 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-        android:id="@+id/main_layout"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <include layout="@layout/appbar"/>
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_marginTop="120dp"
         tools:context=".MainActivity">
 
-        <include layout="@layout/appbar"/>
-
-        <LinearLayout
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
+            android:layout_height="match_parent">
             <TextView
+<<<<<<< HEAD
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+=======
                 android:id="@+id/mainGreeting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
+>>>>>>> upstream/master
                 android:layout_margin="20dp"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="오늘은 무엇을 먹었나요?"
-                android:textColor="@color/black"
+                android:fontFamily="@font/snowflake_regular"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginStart="20dp"
-                />
-
-            <EditText
-                android:id="@+id/food_et"
+                android:textColor="@color/black"
+                android:text="김서영님, 안녕하세요."
+                android:textStyle="bold" />
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/tropy"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/snowflake_bold"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"
+                    android:text="오늘의 순위"/>
+            </LinearLayout>
+=======
                 android:hint="먹은 음식의 이름을 입력해주세요."
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="20dp"
@@ -71,15 +82,188 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
                 />
+>>>>>>> upstream/master
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_selected"
                 android:layout_width="match_parent"
+<<<<<<< HEAD
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:padding="10dp"
+                android:background="@drawable/editview">
+=======
                 android:layout_height="300dp"
                 android:background="@color/background"
                 android:layout_margin="15dp">
+>>>>>>> upstream/master
             </androidx.recyclerview.widget.RecyclerView>
-        </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/dia" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/snowflake_bold"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"
+                    android:text="오늘의 달성도"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/editview"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/snowflake_bold"
+                    android:textSize="20sp"
+                    android:text="500/1,150 kcal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/snowflake_regular"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:text="목표 칼로리: 1,150 kcal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/snowflake_regular"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:text="섭취 칼로리: 700 kcal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/snowflake_regular"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:text="운동 칼로리: 200 kcal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/snowflake_bold"
+                    android:textSize="20sp"
+                    android:text="오늘의 달성도 점수: 90점"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/fork" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/snowflake_bold"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"
+                    android:text="오늘의 영양소 섭취"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/editview"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+                <GridLayout
+                    android:id="@+id/nutrition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="20dp"
+                    android:rowCount="4"
+                    android:columnCount="3">
+                    <TextView
+                        android:layout_columnSpan="3"
+                        android:text="목표 탄단지 비율: 50:30:20"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/snowflake_regular"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:text="탄수화물"
+                        android:textColor="@color/black"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/snowflake_bold"
+                        />
+                    <TextView
+                        android:text="단백질"
+                        android:textColor="@color/black"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/snowflake_bold"/>
+                    <TextView
+                        android:text="지방"
+                        android:textColor="@color/black"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:fontFamily="@font/snowflake_bold" />
+                    <TextView
+                        android:text="0kcal"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1" />
+                    <TextView
+                        android:text="0kcal"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1" />
+                    <TextView
+                        android:text="0kcal"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1" />
+                    <TextView
+                        android:text="0%"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1" />
+                    <TextView
+                        android:text="0%"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1" />
+                    <TextView
+                        android:text="0%"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1" />
+
+                </GridLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+<<<<<<< HEAD
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+=======
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -130,3 +314,4 @@
         app:headerLayout="@layout/navigation_header"
         app:menu="@menu/navigation"/>
 </androidx.drawerlayout.widget.DrawerLayout>
+>>>>>>> upstream/master
