@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myday.ExerciseActivity
 import com.example.myday.MyPageActivity
 import com.example.myday.R
-import com.example.myday.databinding.FoodPageBinding
+import com.example.myday.databinding.FoodSearchBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
@@ -29,17 +29,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class FoodPageActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavigationItemSelectedListener {
+class FoodSearchActivity : AppCompatActivity(), DialogCallback, NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var binding: FoodPageBinding
-    private lateinit var foodNutritionList: MutableList<Row>
+    private lateinit var binding: FoodSearchBinding
+    private lateinit var userInfoList: MutableList<Selected>
     private lateinit var auth: FirebaseAuth
-
-    private val selected: MutableList<Selected> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FoodPageBinding.inflate(layoutInflater)
+        binding = FoodSearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
 
@@ -80,7 +78,7 @@ class FoodPageActivity : AppCompatActivity(), DialogCallback, NavigationView.OnN
             imm.hideSoftInputFromWindow(foodEditText.windowToken, 0)
             val inputText = foodEditText.text.toString()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://openapi.foodsafetykorea.go.kr/api/27dfc35a066042d49e98/I2790/json/1/10/")
+                .baseUrl("https://openapi.foodsafetykorea.go.kr/api/27dfc35a066042d49e98/I2790/json/1/30/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
@@ -95,11 +93,10 @@ class FoodPageActivity : AppCompatActivity(), DialogCallback, NavigationView.OnN
                     val body = response.body()
                     if (body != null && response.isSuccessful) {
                         if (body.I2790.RESULT.CODE == "INFO-200") {
-                            Toast.makeText(this@FoodPageActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@FoodSearchActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
                         } else {
                             response.body()?.I2790?.row?.let {
                                     it1 ->
-                                foodNutritionList = it1
                                 initNutritionRecyclerView(savedInstanceState)
                             }
                         }
@@ -118,7 +115,7 @@ class FoodPageActivity : AppCompatActivity(), DialogCallback, NavigationView.OnN
 
         // 하단에 있는 다음 버튼 클릭시
         binding.nextBtn.setOnClickListener {
-            if (selected.isEmpty()) {
+            if (userInfoList.isEmpty()) {
                 Toast.makeText(this, "선택된 음식이 아직 없어요!", Toast.LENGTH_SHORT).show()
             } else {
                 val time: Time = when (spinner.selectedItem.toString()) {
@@ -129,7 +126,7 @@ class FoodPageActivity : AppCompatActivity(), DialogCallback, NavigationView.OnN
                     else -> Time.SNACK
                 }
                 val intent = Intent(this, MyPageActivity::class.java)
-                intent.putExtra("selectedList", ArrayList(selected))
+                intent.putExtra("selectedList", ArrayList(userInfoList))
                 intent.putExtra("time", time)
                 startActivity(intent)
             }
@@ -154,10 +151,14 @@ class FoodPageActivity : AppCompatActivity(), DialogCallback, NavigationView.OnN
         return true
     }
     // 섭취량 선택후 확인 버튼 클릭시
-    override fun onConfirm(name: String, kcal: Int, count: Int) {
-        selected.add(Selected(name, kcal, count))
+    override fun onConfirm(foodInfo: Row, count: Int) {
+        val userSelection = Selected(foodInfo.DESC_KOR, foodInfo.NUTR_CONT1.toDouble().toInt(), foodInfo.NUTR_CONT2.toDouble().toInt(),
+        foodInfo.NUTR_CONT3.toDouble().toInt(), foodInfo.NUTR_CONT4.toDouble().toInt(), foodInfo.NUTR_CONT5.toDouble().toInt(),
+        foodInfo.NUTR_CONT6.toDouble().toInt(), foodInfo.NUTR_CONT7.toDouble().toInt(), foodInfo.NUTR_CONT8.toDouble().toInt(),
+        foodInfo.NUTR_CONT9.toDouble().toInt(), count)
+        userInfoList.add(userSelection)
         val adapter = SelectedAdapter()
-        adapter.selectedList = selected
+        adapter.selectedList = userInfoList
         binding.recyclerSelected.layoutManager = LinearLayoutManager(this)
         binding.recyclerSelected.adapter = adapter
         supportFragmentManager.popBackStack()
@@ -166,7 +167,7 @@ class FoodPageActivity : AppCompatActivity(), DialogCallback, NavigationView.OnN
     fun initNutritionRecyclerView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             val bundle = Bundle()
-            bundle.putParcelableArrayList("resultList", ArrayList(foodNutritionList))
+            bundle.putParcelableArrayList("resultList", ArrayList(userInfoList))
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 addToBackStack(null)

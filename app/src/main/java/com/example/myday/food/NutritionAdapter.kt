@@ -42,7 +42,7 @@ class NutritionAdapter: RecyclerView.Adapter<NutritionAdapter.MyNutritionViewHol
                 ?.setPositiveButton("확인")
                 { dialog, id ->
                     val selectedVal = np.value
-                    (it.context as? DialogCallback)?.onConfirm(datas[position].DESC_KOR, intKcal, selectedVal)
+                    (it.context as? DialogCallback)?.onConfirm(datas[position], selectedVal)
                 }
                 ?.setNegativeButton("취소")
                 { dialog, id ->
