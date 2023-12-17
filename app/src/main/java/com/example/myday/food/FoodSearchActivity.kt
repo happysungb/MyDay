@@ -121,9 +121,7 @@ class FoodSearchActivity : AppCompatActivity(), DialogCallback, NavigationView.O
                 val time: Time = when (spinner.selectedItem.toString()) {
                     "아침" -> Time.BREAKFAST
                     "점심" -> Time.LUNCH
-                    "저녁" -> Time.DINNER
-                    "야식" -> Time.SUPPER
-                    else -> Time.SNACK
+                     else -> Time.DINNER
                 }
                 val intent = Intent(this, MyPageActivity::class.java)
                 intent.putExtra("selectedList", ArrayList(userInfoList))
