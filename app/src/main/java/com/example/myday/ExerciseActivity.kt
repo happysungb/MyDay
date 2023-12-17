@@ -13,16 +13,16 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.myday.food.FoodSearchActivity
-import com.example.myday.databinding.ActivityExerciseBinding
+import com.example.myday.databinding.FragmentExerciseBinding
 import com.google.android.material.navigation.NavigationView
 
 class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var binding: ActivityExerciseBinding
+    private lateinit var binding: FragmentExerciseBinding
     private lateinit var userName: String
     private lateinit var userEmail: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityExerciseBinding.inflate(layoutInflater)
+        binding = FragmentExerciseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         userName = intent.getStringExtra("userName") ?: "사용자"
