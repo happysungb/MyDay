@@ -37,7 +37,7 @@
             android:name=".user.SignUpActivity"
             android:exported="false"></activity>
         <activity
-            android:name=".food.FoodPageActivity"
+            android:name=".food.FoodSearchActivity"
             android:exported="false"></activity>
         <activity
             android:name=".MyPageActivity"

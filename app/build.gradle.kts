@@ -58,6 +58,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.google.firebase:firebase-firestore:24.10.0")
     implementation("androidx.gridlayout:gridlayout:1.0.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
     platform("com.google.firebase:firebase-bom:32.6.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     testImplementation("junit:junit:4.13.2")

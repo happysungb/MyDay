@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home_bottom"
+        android:enabled="true"
+        android:icon="@drawable/home_icon"
+        android:title="홈"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/food_bottom"
+        android:enabled="true"
+        android:icon="@drawable/food_icon"
+        android:title="식단 기록"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/exercise_bottom"
+        android:enabled="true"
+        android:icon="@drawable/exercise_icon"
+        android:title="운동 기록"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/friend_bottom"
+        android:enabled="true"
+        android:icon="@drawable/friend_icon"
+        android:title="친구"
+        app:showAsAction="always"/>
+
+</menu>
