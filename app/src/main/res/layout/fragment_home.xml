@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:id="@+id/homeFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout
+        android:id="@+id/home_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

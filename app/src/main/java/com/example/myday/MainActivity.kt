@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
             addToBackStack(null)
-            this.replace(com.google.android.material.R.id.container, fragment)
+            this.replace(R.id.home_fragment_container, fragment)
         }
     }
 
