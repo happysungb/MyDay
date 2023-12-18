@@ -11,6 +11,8 @@ import com.example.myday.user.UserDto
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 
 class FriendFragment : Fragment() {
 
@@ -18,6 +20,7 @@ class FriendFragment : Fragment() {
     private lateinit var databaseReference: DatabaseReference
     private lateinit var auth: FirebaseAuth
     private var currentUser: FirebaseUser? = null
+    private var foundUserKey: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +40,6 @@ class FriendFragment : Fragment() {
         // 검색 버튼 클릭 리스너 설정
         binding.friendSearchButton.setOnClickListener {
             val searchEmail = binding.friendEmail.text.toString().trim()
-
-            // 이메일이 비어있지 않은지 확인
             if (searchEmail.isNotEmpty()) {
                 searchUserByEmail(searchEmail)
             } else {
@@ -49,30 +50,78 @@ class FriendFragment : Fragment() {
     }
 
     private fun searchUserByEmail(email: String) {
-        // Firebase Realtime Database에서 사용자를 검색하는 코드
-        databaseReference.child("users")
-            .orderByChild("email")
-            .equalTo(email)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    Log.d("FriendFragment", "DataSnapshot: $dataSnapshot")
-                    if (dataSnapshot.exists()) {
-                        val userSnapshot = dataSnapshot.children.first() // 첫 번째 사용자 정보 가져오기
-                        val foundUser = userSnapshot.getValue(UserDto::class.java)
-                        if (foundUser != null) {
-                            val userName = foundUser.name ?: "이름 없음"
-                            binding.resultTextView.text = "찾은 사용자: $userName"
-                        } else {
-                            binding.resultTextView.text = "사용자 정보가 없습니다"
-                        }
-                    } else{
-                        binding.resultTextView.text = "사용자를 찾을 수 없습니다"
-                    }
-                }
+        Log.d("FriendFragment", "Searching for user with email: $email")
+        val trimmedEmail = email.trim()
+        val firestore = FirebaseFirestore.getInstance()
+        firestore.collection("User")
+            .whereEqualTo("email", trimmedEmail)
+            .get()
+            .addOnSuccessListener { documents ->
+                Log.d("FriendFragment", "Query completed. Found ${documents.size()} documents")
+                if (!documents.isEmpty) {
+                    val userDocument = documents.documents.first()
+                    val foundUser = userDocument.toObject(UserDto::class.java)
+                    foundUserKey = userDocument.id
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // 검색 쿼리가 실패한 경우 처리
+                    foundUser?.let { user ->
+                        val userName = user.name ?: "이름 없음"
+                        binding.friendResult.text = "찾은 사용자: $userName"
+                        binding.friendRequestButton.visibility = View.VISIBLE
+                        binding.friendRequestButton.setOnClickListener { sendFriendRequest(trimmedEmail) }
+                    }
+                } else {
+                    binding.friendResult.text = "사용자를 찾을 수 없습니다"
+                    binding.friendRequestButton.visibility = View.GONE
                 }
-            })
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FriendFragment", "Error fetching user by email: $trimmedEmail", exception)
+                binding.friendResult.text = "오류 발생: 사용자 검색에 실패했습니다."
+                binding.friendRequestButton.visibility = View.GONE
+            }
+    }
+
+    private fun sendFriendRequest(email: String) {
+        // 현재 사용자의 이메일 가져오기
+        val currentUserEmail = currentUser?.email
+
+        // 현재 사용자와 친구로 추가할 사용자의 이메일을 사용하여 친구 관계를 Firestore에 추가
+        if (currentUserEmail != null) {
+            val firestore = FirebaseFirestore.getInstance()
+            val friendshipsCollection = firestore.collection("friendships")
+
+            // 친구 관계를 나타내는 객체
+            val friendship = hashMapOf(
+                "user1" to currentUserEmail,
+                "user2" to email,
+                "created_at" to FieldValue.serverTimestamp() // 현재 서버 시간으로 저장
+            )
+
+            // 'friendships' 컬렉션에 친구 관계 추가
+            friendshipsCollection.add(friendship)
+                .addOnSuccessListener {
+                    // 성공 처리: 예를 들어, UI 업데이트 또는 사용자에게 알림
+                    // 친구 목록 업데이트
+                    updateFriendListTextView()
+                }
+                .addOnFailureListener { e ->
+                    // 실패 처리: 예를 들어, 사용자에게 오류 메시지 표시
+                }
+        }
+    }
+
+    private fun updateFriendListTextView() {
+        val firestore = FirebaseFirestore.getInstance()
+        firestore.collection("friendships")
+            .whereEqualTo("user1", currentUser?.email)
+            .get()
+            .addOnSuccessListener { documents ->
+                val friendList = documents.mapNotNull { it.getString("user2") }
+                // TextView에 친구 목록 표시
+                binding.friendListTextView.text = friendList.joinToString("\n")
+            }
+            .addOnFailureListener { e ->
+                Log.e("FriendFragment", "Error fetching friends: $e")
+            }
     }
 }
