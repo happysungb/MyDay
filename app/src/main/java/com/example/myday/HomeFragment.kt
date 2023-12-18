@@ -84,7 +84,7 @@ class HomeFragment : Fragment() {
                             in 20..29 -> 30
                             in 10..19 -> 20
                             in 1..9 -> 10
-                            else -> 10
+                            else -> 0
                         }
                         val uid = currentUser?.uid
                         uid?.let { db.collection("User").document(it) }?.update("score", score)
