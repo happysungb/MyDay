@@ -1,4 +1,4 @@
-package com.example.myday.food
+package com.example.myday.food.tabview
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
