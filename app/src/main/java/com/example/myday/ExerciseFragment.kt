@@ -19,6 +19,7 @@ import kotlinx.coroutines.selects.select
 class ExerciseFragment: Fragment() {
     private var _binding: FragmentExerciseBinding? = null
     private val binding get() = _binding!!
+    private var userWeight: Double = 50.0
     private lateinit var exerciseSpinners: List<Spinner>
     private lateinit var timeSpinners: List<Spinner>
 
@@ -55,6 +56,8 @@ class ExerciseFragment: Fragment() {
                     if (document.exists()) {
                         val userName = document.getString("name") ?: "사용자"
                         binding.exerciseGreeting.text = "${userName}님, 오늘은 어떤 운동을 하셨나요?"
+                        userWeight = document.getDouble("weight") ?: 50.0 // 사용자의 몸무게 값 가져오기 (50은 기본값)
+                        calculateAndDisplayTotalExerciseTime()
                     } else {
                         // 문서가 없을 경우 처리
                         binding.exerciseGreeting.text = "사용자 정보 없음"
@@ -157,15 +160,15 @@ class ExerciseFragment: Fragment() {
             } else {
                 selectedTimeStr.replace("[^\\d.]".toRegex(), "").toInt()
             }
-            totalExerciseTime += calculateExerciseTime(selectedExercise, selectedTime)
+            totalExerciseTime += calculateExerciseTime(selectedExercise, selectedTime, userWeight)
+
         }
 
         // 계산된 운동 시간을 UI에 표시
         displayExercise1(totalExerciseTime)
     }
 
-    private fun calculateExerciseTime(selectedExercise: String, selectedTime: Int): Double {
-        val userWeight = 50
+    private fun calculateExerciseTime(selectedExercise: String, selectedTime: Int, userWeight: Double): Double {
 
         return when (selectedExercise) {
             "천천히 걷기" -> 3.5 * 2 * userWeight * selectedTime / 1000 * 5
