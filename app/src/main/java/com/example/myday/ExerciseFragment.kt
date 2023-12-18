@@ -131,6 +131,18 @@ class ExerciseFragment: Fragment() {
         binding.calcButton.setOnClickListener {
             calculateAndDisplayTotalExerciseTime()
         }
+        binding.add1.setOnClickListener {
+            calculateAndDisplayTotalExerciseTime()
+        }
+        binding.add2.setOnClickListener {
+            calculateAndDisplayTotalExerciseTime()
+        }
+        binding.add3.setOnClickListener {
+            calculateAndDisplayTotalExerciseTime()
+        }
+        binding.add4.setOnClickListener {
+            calculateAndDisplayTotalExerciseTime()
+        }
     }
 
     private fun calculateAndDisplayTotalExerciseTime() {
@@ -149,7 +161,7 @@ class ExerciseFragment: Fragment() {
         }
 
         // 계산된 운동 시간을 UI에 표시
-        displayExerciseTime(totalExerciseTime)
+        displayExercise1(totalExerciseTime)
     }
 
     private fun calculateExerciseTime(selectedExercise: String, selectedTime: Int): Double {
@@ -167,14 +179,11 @@ class ExerciseFragment: Fragment() {
             else -> 0.0
         }
     }
-
-    private fun displayExerciseTime(calculatedTime: Double) {
-        // 운동 시간 값을 텍스트로 변환
-        val formattedTime = String.format("%.2f", calculatedTime) // 소수점 두 자리까지 표시하도록 설정
-
-        // UI 상의 TextView에 운동 시간 값을 설정
-        binding.calcResult.text = "오늘의 총 소모 칼로리는 $formattedTime kcal 입니다."
+    private fun displayExercise1(calculatedTime: Double) {
+        val result1 = String.format("%.1f", calculatedTime)
+        binding.result1.text = "오늘의 총 소모 칼로리는 $result1 kcal 입니다."
     }
+
 
 
 
