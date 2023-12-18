@@ -17,7 +17,7 @@ data class UserDto(
 )
 
 data class FoodArchive (
-    var date: LocalDate, // 날짜
+    private var date: LocalDate, // 날짜
     val period: Time, // 아침 점심 저녁
     val foodList: Selected // 음식 리스트
 )
