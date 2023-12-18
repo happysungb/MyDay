@@ -22,6 +22,8 @@ class ExerciseFragment: Fragment() {
     private var userWeight: Double = 50.0
     private lateinit var exerciseSpinners: List<Spinner>
     private lateinit var timeSpinners: List<Spinner>
+    private val currentUser = FirebaseAuth.getInstance().currentUser
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -183,8 +185,16 @@ class ExerciseFragment: Fragment() {
         }
     }
     private fun displayExercise1(calculatedTime: Double) {
-        val result1 = String.format("%.1f", calculatedTime)
+        val result1 = calculatedTime.toInt()
         binding.result1.text = "오늘의 총 소모 칼로리는 $result1 kcal 입니다."
+        val uid = currentUser?.uid
+        val userRef = uid?.let { db.collection("User").document(it) }
+        userRef?.get()?.addOnSuccessListener { document ->
+            if (document.exists()) {
+                val spendKcalSum = (document.get("spendKcalSum") as Long).toInt()
+                userRef.update("spendKcalSum", spendKcalSum + result1)
+            }
+        }
     }
 
 
