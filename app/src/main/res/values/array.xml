@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="exercise1">
+        <item>선택해주세요</item>
         <item>천천히 걷기</item>
         <item>강아지 산책시키기</item>
         <item>조깅하기</item>
@@ -12,6 +13,7 @@
     </string-array>
 
     <string-array name="time1">
+        <item>선택해주세요</item>
         <item>10분</item>
         <item>20분</item>
         <item>30분</item>
