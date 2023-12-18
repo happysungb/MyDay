@@ -59,6 +59,14 @@ class SearchResultFragment: Fragment(), DialogCallback {
         userRef?.update("foodArchive", FieldValue.arrayUnion(foodArchive))
             ?.addOnSuccessListener { Log.d("SearchResultFragment", "DocumentSnapshot successfully updated!") }
             ?.addOnFailureListener { e -> Log.w("SearchResultFragment", "Error updating document", e) }
+
+        var sum = 0
+        userRef?.get()?.addOnSuccessListener { document ->
+            if (document.exists()) {
+                sum = (document.get("sum") as Long).toInt()
+            }
+        }
+        userRef?.update("sum", (sum + foodInfo.NUTR_CONT1.toDoubleOrZero() * count))
     }
 
     private fun getPeriod(): Time {
