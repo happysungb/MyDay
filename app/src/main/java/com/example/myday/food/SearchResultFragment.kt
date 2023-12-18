@@ -68,9 +68,13 @@ class SearchResultFragment: Fragment(), DialogCallback {
         userRef?.get()?.addOnSuccessListener { document ->
             if (document.exists()) {
                 kcalSum = (document.get("kcalSum") as Long).toInt()
+                Log.v("mas", kcalSum.toString())
                 carboSum = (document.get("carboSum") as Long).toInt()
+                Log.v("mas", carboSum.toString())
                 proteinSum = (document.get("proteinSum") as Long).toInt()
+                Log.v("mas", proteinSum.toString())
                 fatSum = (document.get("fatSum") as Long).toInt()
+                Log.v("mas", fatSum.toString())
             }
         }
         userRef?.update("kcalSum", (kcalSum + foodInfo.NUTR_CONT1.toDoubleOrZero() * count))
