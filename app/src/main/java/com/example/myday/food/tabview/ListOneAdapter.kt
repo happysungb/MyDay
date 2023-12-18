@@ -1,13 +1,14 @@
-package com.example.myday.food
+package com.example.myday.food.tabview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myday.databinding.SelectedListBinding
+import com.example.myday.databinding.SelectedListOneBinding
+import com.example.myday.food.Selected
 
-class SelectedAdapter: RecyclerView.Adapter<SelectedAdapter.MySelectedViewHolder>() {
+class ListOneAdapter: RecyclerView.Adapter<ListOneAdapter.MySelectedViewHolder>() {
     var selectedList = mutableListOf<Selected>()
-    inner class MySelectedViewHolder(private val binding: SelectedListBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class MySelectedViewHolder(private val binding: SelectedListOneBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Selected) {
             binding.selectedFoodName.text = data.name
             "${data.kcal}kcal".also { binding.selectedFoodKcal.text = it }
@@ -16,7 +17,7 @@ class SelectedAdapter: RecyclerView.Adapter<SelectedAdapter.MySelectedViewHolder
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MySelectedViewHolder {
-        val binding = SelectedListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = SelectedListOneBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MySelectedViewHolder(binding)
     }
 
