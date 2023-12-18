@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.myday.databinding.FragmentHomeBinding
+import com.example.myday.food.FoodFragment
 import com.example.myday.user.Gender
 import com.example.myday.user.UserDto
 import com.google.firebase.auth.FirebaseAuth

@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
@@ -28,6 +29,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class FoodFragment: Fragment() {
+
     private var _binding: FragmentFoodBinding? = null
     private val binding get() = _binding!!
     private lateinit var searchResult: MutableList<Row>

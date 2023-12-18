@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment
 import com.example.myday.databinding.FragmentExerciseBinding
 import com.example.myday.databinding.FragmentHomeBinding
 import com.google.android.material.internal.ViewUtils
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.selects.select
 
 class ExerciseFragment: Fragment() {
@@ -37,6 +40,34 @@ class ExerciseFragment: Fragment() {
             binding.spinnerTime4
             // 추가적인 time 스피너들
         )
+
+        // Cloud Firestore 인스턴스 초기화
+        val db = FirebaseFirestore.getInstance()
+
+        // 사용자 정보 가져오기
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            val userId = user.uid // 사용자 UID 가져오기
+            db.collection("User")
+                .document(userId) // UID를 사용하여 문서 가져오기
+                .get()
+                .addOnSuccessListener { document: DocumentSnapshot ->
+                    if (document.exists()) {
+                        val userName = document.getString("name") ?: "사용자"
+                        binding.exerciseGreeting.text = "${userName}님, 오늘은 어떤 운동을 하셨나요?"
+                    } else {
+                        // 문서가 없을 경우 처리
+                        binding.exerciseGreeting.text = "사용자 정보 없음"
+                    }
+                }
+                .addOnFailureListener { e: Exception ->
+                    // 오류 처리
+                    binding.exerciseGreeting.text = "사용자 정보를 가져오지 못했습니다: $e"
+                }
+        } else {
+            // 사용자가 로그인되어 있지 않을 경우 처리
+            binding.exerciseGreeting.text = "로그인되지 않았습니다."
+        }
 
         for ((index, spinner) in exerciseSpinners.withIndex()) {
             val exerciseItems = resources.getStringArray(R.array.exercise1)
