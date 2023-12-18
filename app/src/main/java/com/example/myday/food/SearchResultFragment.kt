@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDate
+import java.time.ZoneId
+import java.util.Date
 
 class SearchResultFragment: Fragment(), DialogCallback {
     private var _binding: RecyclerFragmentBinding? = null
@@ -51,7 +53,7 @@ class SearchResultFragment: Fragment(), DialogCallback {
             foodInfo.DESC_KOR, foodInfo.NUTR_CONT1, foodInfo.NUTR_CONT2,
             foodInfo.NUTR_CONT3, foodInfo.NUTR_CONT4, foodInfo.NUTR_CONT5, foodInfo.NUTR_CONT6,
             foodInfo.NUTR_CONT7, foodInfo.NUTR_CONT8, foodInfo.NUTR_CONT9, count)
-        val foodArchive = FoodArchive(period, userSelection)
+        val foodArchive = FoodArchive(LocalDate.now().toDate(), period, userSelection)
 
         val userRef = uid?.let { db.collection("User").document(it) }
         userRef?.update("foodArchive", FieldValue.arrayUnion(foodArchive))
@@ -91,4 +93,15 @@ class SearchResultFragment: Fragment(), DialogCallback {
             this.toDoubleOrNull()?.toInt() ?: 0
         }
     }
+
+    // LocalDate를 Date로 변환
+    fun LocalDate.toDate(): Date {
+        return Date.from(this.atStartOfDay(ZoneId.systemDefault()).toInstant())
+    }
+
+    // Date를 LocalDate로 변환
+    fun Date.toLocalDate(): LocalDate {
+        return this.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+    }
+
 }

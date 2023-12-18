@@ -2,7 +2,7 @@ package com.example.myday.user
 
 import com.example.myday.food.Selected
 import com.example.myday.food.Time
-import java.time.LocalDate
+import java.util.Date
 
 data class UserDto(
     var name :String? = null,
@@ -17,6 +17,7 @@ data class UserDto(
 )
 
 data class FoodArchive (
+    private var date: Date? = null, // 날짜
     val period: Time? = null, // 아침 점심 저녁
     val foodList: Selected? = null // 음식 리스트
 )

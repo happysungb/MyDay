@@ -9,7 +9,7 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:columnCount="3">
         <TextView
             android:id="@+id/selected_food_name"
@@ -17,10 +17,12 @@
             android:layout_columnWeight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/snowflake_bold"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="20sp"
             android:text="Bread"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="30dp"
             />
         <TextView
             android:id="@+id/selected_food_kcal"
@@ -28,6 +30,8 @@
             android:layout_columnWeight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/snowflake_regular"
             android:textSize="16sp"
             android:text="100kcal"
             android:layout_marginStart="30dp" />
@@ -37,9 +41,30 @@
             android:layout_columnWeight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/snowflake_regular"
             android:textSize="16sp"
             android:text="2인분"
             android:layout_marginStart="30dp" />
+        <TextView
+            android:id="@+id/selected_food_sum"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_columnSpan="3"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/snowflake_regular"
+            android:textStyle="bold"
+            android:text="=> 100 * 2 = 200kcal"
+            android:textColor="@color/black"
+            android:layout_marginStart="30dp" />
     </GridLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/line">
+    </ImageView>
 
 </LinearLayout>
