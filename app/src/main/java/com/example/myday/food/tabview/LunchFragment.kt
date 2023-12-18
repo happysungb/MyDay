@@ -31,15 +31,15 @@ class LunchFragment: Fragment() {
         userInfo.addOnSuccessListener {document ->
             if (document.exists()) {
                 val foodArchives = document.toObject<UserDocument>()?.foodArchive
-                val breakfastFoodLists = foodArchives?.filter{it.period == Time.LUNCH}?.map{it.foodList}
+                val lunchFoodLists = foodArchives?.filter{it.period == Time.LUNCH}?.map{it.foodList}
 
-                val adapterOne = ListOneAdapter()
-                adapterOne.selectedList = breakfastFoodLists as MutableList<Selected>
+                val adapterOne = ListOneLunch()
+                adapterOne.selectedList = lunchFoodLists as MutableList<Selected>
                 binding.list1.layoutManager = LinearLayoutManager(activity)
                 binding.list1.adapter = adapterOne
 
-                val adapterTwo = ListTwoAdapter()
-                adapterTwo.selectedList = breakfastFoodLists
+                val adapterTwo = ListTwoLunch()
+                adapterTwo.selectedList = lunchFoodLists
                 binding.list2.layoutManager = LinearLayoutManager(activity)
                 binding.list2.adapter = adapterTwo
             }
