@@ -9,8 +9,8 @@ import com.example.myday.food.Selected
 class ListTwoAdapter: RecyclerView.Adapter<ListTwoAdapter.MySelectedViewHolder>() {
     var selectedList = mutableListOf<Selected>()
     inner class MySelectedViewHolder(private val binding: SelectedListTwoBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Selected) {
-            binding.list2Name.text = data.name
+        fun bind(data: Selected, position: Int) {
+            "${position+1}. ${data.name}".also {binding.list2Name.text = it}
             "${data.carbohydrate}g".also { binding.list2Carbo.text = it }
             "${data.protein}g".also { binding.list2Protein.text = it }
             "${data.fat}g".also { binding.list2Fat.text = it }
@@ -27,6 +27,6 @@ class ListTwoAdapter: RecyclerView.Adapter<ListTwoAdapter.MySelectedViewHolder>(
     }
 
     override fun onBindViewHolder(holder: MySelectedViewHolder, position: Int) {
-        holder.bind(selectedList[position])
+        holder.bind(selectedList[position], position)
     }
 }

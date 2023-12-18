@@ -9,10 +9,11 @@ import com.example.myday.food.Selected
 class ListOneAdapter: RecyclerView.Adapter<ListOneAdapter.MySelectedViewHolder>() {
     var selectedList = mutableListOf<Selected>()
     inner class MySelectedViewHolder(private val binding: SelectedListOneBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Selected) {
-            binding.selectedFoodName.text = data.name
+        fun bind(data: Selected, position: Int) {
+            "${position+1}. ${data.name}".also {binding.selectedFoodName.text = it}
             "${data.kcal}kcal".also { binding.selectedFoodKcal.text = it }
             "${data.count}인분".also { binding.selectedFoodCount.text = it }
+            "=> ${data.kcal} X ${data.count} = ${data.count?.times(data.kcal!!)}kcal".also { binding.selectedFoodSum.text = it }
         }
     }
 
@@ -22,7 +23,7 @@ class ListOneAdapter: RecyclerView.Adapter<ListOneAdapter.MySelectedViewHolder>(
     }
 
     override fun onBindViewHolder(holder: MySelectedViewHolder, position: Int) {
-        holder.bind(selectedList[position])
+        holder.bind(selectedList[position], position)
     }
 
     override fun getItemCount(): Int {

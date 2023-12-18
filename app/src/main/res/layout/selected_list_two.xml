@@ -2,23 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp">
+    android:layout_height="wrap_content">
 
+    <TextView
+        android:id="@+id/list2_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/snowflake_bold"
+        android:textSize="20sp"
+        android:text="음식명"
+        android:textColor="@color/black" />
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="20dp"
-        android:columnCount="4">
-        <TextView
-            android:id="@+id/list2_name"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:fontFamily="@font/snowflake_regular"
-            android:text="음식명"
-            android:textColor="@color/black"
-            />
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:columnCount="3">
         <TextView
             android:id="@+id/list2_carbo"
             android:layout_rowWeight="1"
@@ -27,7 +31,6 @@
             android:text="탄수화물"
             android:textColor="@color/black"
             />
-
         <TextView
             android:id="@+id/list2_protein"
             android:layout_rowWeight="1"
@@ -45,9 +48,11 @@
             android:text="지방"
             android:textColor="@color/black"
             />
-
-
-
-
     </GridLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/line">
+    </ImageView>
 </LinearLayout>
