@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.myday.databinding.FragmentHomeBinding
-import com.example.myday.food.FoodFragment
 import com.example.myday.user.Gender
 import com.example.myday.user.UserDto
 import com.google.firebase.auth.FirebaseAuth
@@ -16,7 +15,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.Calendar
-import java.util.Date
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -67,31 +65,40 @@ class HomeFragment : Fragment() {
                         val age = calculateAge(userBirthDate)
 
                         // 권장 칼로리 계산
-                        val recommendedCalories = calculateRecommendedCalories(userGender, age, userWeight, userHeight)
+                        val recommendedCalories =
+                            calculateRecommendedCalories(userGender, age, userWeight, userHeight)
                         val kcalSum = document.get("kcalSum").toString().toInt()
                         val carboSum = document.get("carboSum").toString().toInt()
                         val proteinSum = document.get("proteinSum").toString().toInt()
                         val fatSum = document.get("fatSum").toString().toInt()
-                        val total = document.get("carboSum").toString().toInt() + document.get("proteinSum").toString().toInt() + document.get("fatSum").toString().toInt()
+                        val spendKcalSum = document.get("spendKcalSum").toString().toInt()
+                        val currKcal = kcalSum - spendKcalSum
+                        val score = when ((currKcal / recommendedCalories) * 100) {
+                            in 90..100 -> 100
+                            in 80..89 -> 90
+                            in 70..79 -> 80
+                            in 60..69 -> 70
+                            in 50..59 -> 60
+                            in 40..49 -> 50
+                            in 30..39 -> 40
+                            in 20..29 -> 30
+                            in 10..19 -> 20
+                            in 1..9 -> 10
+                            else -> 10
+                        }
+                        val uid = currentUser?.uid
+                        uid?.let { db.collection("User").document(it) }?.update("score", score)
 
                         // 텍스트뷰에 권장 칼로리 표시
-                        binding.homeKcal.text = "500/${recommendedCalories}kcal"
+                        binding.homeKcal.text = "${currKcal}/${recommendedCalories}kcal"
                         binding.homeRecommendedIntake.text = "목표 칼로리: $recommendedCalories kcal"
                         binding.homeAteKcal.text = "섭취 칼로리: ${kcalSum}kcal"
+                        binding.homeExerciseKcal.text = "운동 칼로리: ${spendKcalSum}kcal"
                         binding.greetingTextView.text = "${userName}님, 안녕하세요."
                         binding.homeAteCarbo.text = "${carboSum}g"
                         binding.homeAteProtein.text = "${proteinSum}g"
                         binding.homeAteFat.text = "${fatSum}g"
-                        if (total == 0) {
-                            binding.homeCarboPer.text = "0%"
-                            binding.homeProteinPer.text = "0%"
-                            binding.homeFatPer.text = "0%"
-                        } else {
-                            binding.homeCarboPer.text = "${(carboSum / total) * 100}%"
-                            binding.homeProteinPer.text = "${(proteinSum / total) * 100}%"
-                            binding.homeFatPer.text = "${(fatSum / total) * 100}%"
-                        }
-
+                        binding.homeScore.text = "오늘의 달성도 점수: ${score}점"
 
                     } else {
                         // 문서가 없을 경우 처리

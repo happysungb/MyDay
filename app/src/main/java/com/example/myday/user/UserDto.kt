@@ -14,10 +14,12 @@ data class UserDto(
     var birthDate: Long? = null,
     var timestamp :Long? = null,
     var foodArchive :MutableList<FoodArchive> = mutableListOf(),
+    val spendKcalSum :Int = 0,
     val kcalSum :Int = 0,
     val carboSum :Int = 0,
     val proteinSum :Int = 0,
-    val fatSum :Int = 0
+    val fatSum :Int = 0,
+    val score :Int = 0
 )
 
 data class FoodArchive (

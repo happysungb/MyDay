@@ -2,7 +2,6 @@ package com.example.myday.food
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,30 +56,19 @@ class SearchResultFragment: Fragment(), DialogCallback {
 
         val userRef = uid?.let { db.collection("User").document(it) }
         userRef?.update("foodArchive", FieldValue.arrayUnion(foodArchive))
-            ?.addOnSuccessListener { Log.d("SearchResultFragment", "DocumentSnapshot successfully updated!") }
-            ?.addOnFailureListener { e -> Log.w("SearchResultFragment", "Error updating document", e) }
-
-        var kcalSum = 0
-        var carboSum = 0
-        var proteinSum = 0
-        var fatSum = 0
 
         userRef?.get()?.addOnSuccessListener { document ->
             if (document.exists()) {
-                kcalSum = (document.get("kcalSum") as Long).toInt()
-                Log.v("mas", kcalSum.toString())
-                carboSum = (document.get("carboSum") as Long).toInt()
-                Log.v("mas", carboSum.toString())
-                proteinSum = (document.get("proteinSum") as Long).toInt()
-                Log.v("mas", proteinSum.toString())
-                fatSum = (document.get("fatSum") as Long).toInt()
-                Log.v("mas", fatSum.toString())
+                val kcalSum = (document.get("kcalSum") as Long).toInt()
+                userRef.update("kcalSum", (foodInfo.NUTR_CONT1.toDoubleOrZero() * count + kcalSum))
+                val carboSum = (document.get("carboSum") as Long).toInt()
+                userRef.update("carboSum", (foodInfo.NUTR_CONT2.toDoubleOrZero() * count + carboSum))
+                val proteinSum = (document.get("proteinSum") as Long).toInt()
+                userRef.update("proteinSum", (foodInfo.NUTR_CONT3.toDoubleOrZero() * count + proteinSum))
+                val fatSum = (document.get("fatSum") as Long).toInt()
+                userRef.update("fatSum", (foodInfo.NUTR_CONT4.toDoubleOrZero() * count + fatSum))
             }
         }
-        userRef?.update("kcalSum", (kcalSum + foodInfo.NUTR_CONT1.toDoubleOrZero() * count))
-        userRef?.update("carboSum", (carboSum + foodInfo.NUTR_CONT2.toDoubleOrZero() * count))
-        userRef?.update("proteinSum", (proteinSum + foodInfo.NUTR_CONT3.toDoubleOrZero() * count))
-        userRef?.update("fatSum", (fatSum + foodInfo.NUTR_CONT4.toDoubleOrZero() * count))
     }
 
     private fun getPeriod(): Time {

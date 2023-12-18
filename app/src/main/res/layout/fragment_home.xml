@@ -110,6 +110,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/homeExerciseKcal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -121,6 +122,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/homeScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/snowflake_bold"
@@ -218,24 +220,6 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:text="0kcal" />
-
-                <TextView
-                    android:id="@+id/homeCarboPer"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:text="0%" />
-
-                <TextView
-                    android:id="@+id/homeProteinPer"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:text="0%" />
-
-                <TextView
-                    android:id="@+id/homeFatPer"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:text="0%" />
 
             </GridLayout>
         </LinearLayout>
