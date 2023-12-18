@@ -98,6 +98,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/homeAteKcal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -201,31 +202,37 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/homeAteCarbo"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:text="0kcal" />
 
                 <TextView
+                    android:id="@+id/homeAteProtein"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:text="0kcal" />
 
                 <TextView
+                    android:id="@+id/homeAteFat"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:text="0kcal" />
 
                 <TextView
+                    android:id="@+id/homeCarboPer"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:text="0%" />
 
                 <TextView
+                    android:id="@+id/homeProteinPer"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:text="0%" />
 
                 <TextView
+                    android:id="@+id/homeFatPer"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:text="0%" />

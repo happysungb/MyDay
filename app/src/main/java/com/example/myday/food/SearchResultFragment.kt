@@ -60,13 +60,23 @@ class SearchResultFragment: Fragment(), DialogCallback {
             ?.addOnSuccessListener { Log.d("SearchResultFragment", "DocumentSnapshot successfully updated!") }
             ?.addOnFailureListener { e -> Log.w("SearchResultFragment", "Error updating document", e) }
 
-        var sum = 0
+        var kcalSum = 0
+        var carboSum = 0
+        var proteinSum = 0
+        var fatSum = 0
+
         userRef?.get()?.addOnSuccessListener { document ->
             if (document.exists()) {
-                sum = (document.get("sum") as Long).toInt()
+                kcalSum = (document.get("kcalSum") as Long).toInt()
+                carboSum = (document.get("carboSum") as Long).toInt()
+                proteinSum = (document.get("proteinSum") as Long).toInt()
+                fatSum = (document.get("fatSum") as Long).toInt()
             }
         }
-        userRef?.update("sum", (sum + foodInfo.NUTR_CONT1.toDoubleOrZero() * count))
+        userRef?.update("kcalSum", (kcalSum + foodInfo.NUTR_CONT1.toDoubleOrZero() * count))
+        userRef?.update("carboSum", (carboSum + foodInfo.NUTR_CONT2.toDoubleOrZero() * count))
+        userRef?.update("proteinSum", (proteinSum + foodInfo.NUTR_CONT3.toDoubleOrZero() * count))
+        userRef?.update("fatSum", (fatSum + foodInfo.NUTR_CONT4.toDoubleOrZero() * count))
     }
 
     private fun getPeriod(): Time {

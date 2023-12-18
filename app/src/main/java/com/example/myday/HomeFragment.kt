@@ -68,13 +68,31 @@ class HomeFragment : Fragment() {
 
                         // 권장 칼로리 계산
                         val recommendedCalories = calculateRecommendedCalories(userGender, age, userWeight, userHeight)
+                        val kcalSum = document.get("kcalSum").toString().toInt()
+                        val carboSum = document.get("carboSum").toString().toInt()
+                        val proteinSum = document.get("proteinSum").toString().toInt()
+                        val fatSum = document.get("fatSum").toString().toInt()
+                        val total = document.get("carboSum").toString().toInt() + document.get("proteinSum").toString().toInt() + document.get("fatSum").toString().toInt()
 
                         // 텍스트뷰에 권장 칼로리 표시
                         binding.homeKcal.text = "500/${recommendedCalories}kcal"
-
                         binding.homeRecommendedIntake.text = "목표 칼로리: $recommendedCalories kcal"
-
+                        binding.homeAteKcal.text = "섭취 칼로리: ${kcalSum}kcal"
                         binding.greetingTextView.text = "${userName}님, 안녕하세요."
+                        binding.homeAteCarbo.text = "${carboSum}g"
+                        binding.homeAteProtein.text = "${proteinSum}g"
+                        binding.homeAteFat.text = "${fatSum}g"
+                        if (total == 0) {
+                            binding.homeCarboPer.text = "0%"
+                            binding.homeProteinPer.text = "0%"
+                            binding.homeFatPer.text = "0%"
+                        } else {
+                            binding.homeCarboPer.text = "${(carboSum / total) * 100}%"
+                            binding.homeProteinPer.text = "${(proteinSum / total) * 100}%"
+                            binding.homeFatPer.text = "${(fatSum / total) * 100}%"
+                        }
+
+
                     } else {
                         // 문서가 없을 경우 처리
                         binding.greetingTextView.text = "사용자 정보 없음"
