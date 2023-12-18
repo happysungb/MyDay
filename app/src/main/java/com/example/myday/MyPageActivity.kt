@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import com.example.myday.food.FoodSearchActivity
+import com.example.myday.food.FoodFragment
 import com.example.myday.databinding.ActivityMyPageBinding
 import com.google.android.material.navigation.NavigationView
 import java.time.LocalDate
@@ -65,7 +65,7 @@ class MyPageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 //
             }
             R.id.navigation_kcal -> {
-                val intent = Intent(this, FoodSearchActivity::class.java)
+                val intent = Intent(this, FoodFragment::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                 startActivity(intent)
             }

@@ -9,6 +9,8 @@ import com.example.myday.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 
 import com.example.myday.user.LoginActivity
+import com.google.android.material.internal.ViewUtils
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -22,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavi.setupWithNavController(navController)
-
     }
 
     override fun onStart() {

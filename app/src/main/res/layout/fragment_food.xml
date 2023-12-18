@@ -1,57 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/food_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <TextView
+    <LinearLayout
+        android:id="@+id/food_mainlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/snowflake_regular"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:textColor="@color/black"
-        android:text="김승주님, 오늘은 무엇을 먹었나요?" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/snowflake_bold"
-        android:textSize="30sp"
-        android:textColor="@color/black"
-        android:text="2,550kcal / 1,150kcal"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/snowflake_regular"
-        android:textSize="15sp"
-        android:textColor="@color/black"
-        android:text="목표 칼로리보다 1,140kcal 더 섭취했어요."/>
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/nutrition_pc"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/snowflake_regular"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:text="김승주님, 오늘은 무엇을 먹었나요?" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/snowflake_bold"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:text="2,550kcal / 1,150kcal"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/snowflake_regular"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:text="목표 칼로리보다 1,140kcal 더 섭취했어요."/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:src="@drawable/line"/>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/nutrition_tl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp">
+            </Spinner>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/nutrition_vp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+            <EditText
+                android:id="@+id/food_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="으로 먹은 음식"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                />
+            <Button
+                android:id="@+id/food_add_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="40dp"
+                android:background="@color/main_color"
+                android:text="추가하기"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical|end"/>
+        </GridLayout>
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/nutrition_tl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/nutrition_vp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
 </LinearLayout>
-
