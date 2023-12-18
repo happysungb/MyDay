@@ -13,13 +13,17 @@ data class UserDto(
     var weight :Int? = null,
     var birthDate: Long? = null,
     var timestamp :Long? = null,
-    var foodArchive :MutableList<FoodArchive> = mutableListOf()
+    var foodArchive :MutableList<FoodArchive> = mutableListOf(),
+    val kcalSum :Int = 0,
+    val carboSum :Int = 0,
+    val proteinSum :Int = 0,
+    val fatSum :Int = 0
 )
 
 data class FoodArchive (
     private var date: Date? = null, // 날짜
     val period: Time? = null, // 아침 점심 저녁
-    val foodList: Selected? = null // 음식 리스트
+    val foodList: Selected? = null, // 음식 리스트
 )
 
 data class UserDocument(
