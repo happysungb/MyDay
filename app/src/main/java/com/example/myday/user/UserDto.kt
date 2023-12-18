@@ -1,5 +1,9 @@
 package com.example.myday.user
 
+import com.example.myday.food.Selected
+import com.example.myday.food.Time
+import java.time.LocalDate
+
 data class UserDto(
     var name :String? = null,
     var email :String? = null,
@@ -7,5 +11,12 @@ data class UserDto(
     var gender :Gender? = null,
     var height :Int? = null,
     var weight :Int? = null,
-    var timestamp :Long? = null
+    var timestamp :Long? = null,
+    var foodArchive :MutableList<FoodArchive> = mutableListOf()
+)
+
+data class FoodArchive (
+    private val date: LocalDate, // 날짜
+    val period: Time, // 아침 점심 저녁
+    val foodList: Selected // 음식 리스트
 )

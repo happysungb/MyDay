@@ -1,16 +1,29 @@
 package com.example.myday.food
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.Spinner
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myday.R
 import com.example.myday.databinding.RecyclerFragmentBinding
+import com.example.myday.user.FoodArchive
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import java.time.LocalDate
 
-class SearchResultFragment: Fragment() {
+class SearchResultFragment: Fragment(), DialogCallback {
     private var _binding: RecyclerFragmentBinding? = null
     private val binding get() = _binding!!
+    private val currentUser = FirebaseAuth.getInstance().currentUser
+    private val db = FirebaseFirestore.getInstance()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = RecyclerFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -18,14 +31,65 @@ class SearchResultFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = NutritionAdapter()
+        val adapter = NutritionAdapter(this)
         adapter.datas = requireArguments().getParcelableArrayList("resultList")!!
-        binding.recyclerFragment.layoutManager  = LinearLayoutManager(activity)
-        binding.recyclerFragment.adapter = adapter
+        binding.recyclerView.layoutManager  = LinearLayoutManager(activity)
+        binding.recyclerView.adapter = adapter
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onConfirm(foodInfo: Row, count: Int) {
+        backToPreviousFragment()
+        val uid = currentUser?.uid
+        Log.v("ksj", "uid: $uid")
+        val period = getPeriod()
+        val userSelection = buildSelectedInstance(
+            foodInfo.DESC_KOR, foodInfo.NUTR_CONT1, foodInfo.NUTR_CONT2,
+            foodInfo.NUTR_CONT3, foodInfo.NUTR_CONT4, foodInfo.NUTR_CONT5, foodInfo.NUTR_CONT6,
+            foodInfo.NUTR_CONT7, foodInfo.NUTR_CONT8, foodInfo.NUTR_CONT9, count)
+        val foodArchive = FoodArchive(LocalDate.now(), period, userSelection)
+
+        val userRef = uid?.let { db.collection("User").document(it) }
+        userRef?.update("foodArchive", FieldValue.arrayUnion(foodArchive))
+            ?.addOnSuccessListener { Log.d("SearchResultFragment", "DocumentSnapshot successfully updated!") }
+            ?.addOnFailureListener { e -> Log.w("SearchResultFragment", "Error updating document", e) }
+    }
+
+    private fun getPeriod(): Time {
+        return when (requireActivity().findViewById<Spinner>(R.id.spinner).selectedItem.toString()) {
+            "아침" -> Time.BREAKFAST
+            "점심" -> Time.LUNCH
+            else -> Time.DINNER
+        }
+    }
+
+    private fun backToPreviousFragment() {
+        requireActivity().supportFragmentManager.popBackStack()
+        val searchFragment = requireActivity().findViewById<LinearLayout>(R.id.food_fragment_container)
+        searchFragment.visibility = View.GONE
+        val mainFragment = requireActivity().findViewById<LinearLayout>(R.id.food_mainlayout)
+        mainFragment.visibility = View.VISIBLE
+    }
+
+    private fun buildSelectedInstance(name: String, kcal: String, carbohydrate: String,
+                                      protein: String, fat: String, sugar: String, sodium: String,
+                                      cholesterol: String, saturatedFat: String,
+                                      transFat: String, count: Int): Selected {
+        return Selected(name, kcal.toDoubleOrZero(), carbohydrate.toDoubleOrZero(), protein.toDoubleOrZero(),
+            fat.toDoubleOrZero(), sugar.toDoubleOrZero(), sodium.toDoubleOrZero(), cholesterol.toDoubleOrZero(),
+            saturatedFat.toDoubleOrZero(), transFat.toDoubleOrZero(), count)
+    }
+
+    private fun String.toDoubleOrZero(): Int {
+        return if (this.isEmpty()) {
+            0
+        } else {
+            this.toDoubleOrNull()?.toInt() ?: 0
+        }
     }
 }
