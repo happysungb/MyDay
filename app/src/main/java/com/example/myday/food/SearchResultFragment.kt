@@ -46,13 +46,12 @@ class SearchResultFragment: Fragment(), DialogCallback {
     override fun onConfirm(foodInfo: Row, count: Int) {
         backToPreviousFragment()
         val uid = currentUser?.uid
-        Log.v("ksj", "uid: $uid")
         val period = getPeriod()
         val userSelection = buildSelectedInstance(
             foodInfo.DESC_KOR, foodInfo.NUTR_CONT1, foodInfo.NUTR_CONT2,
             foodInfo.NUTR_CONT3, foodInfo.NUTR_CONT4, foodInfo.NUTR_CONT5, foodInfo.NUTR_CONT6,
             foodInfo.NUTR_CONT7, foodInfo.NUTR_CONT8, foodInfo.NUTR_CONT9, count)
-        val foodArchive = FoodArchive(LocalDate.now(), period, userSelection)
+        val foodArchive = FoodArchive(period, userSelection)
 
         val userRef = uid?.let { db.collection("User").document(it) }
         userRef?.update("foodArchive", FieldValue.arrayUnion(foodArchive))
