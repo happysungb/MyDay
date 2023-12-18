@@ -2,6 +2,39 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 이메일 입력 필드 -->
+    <EditText
+        android:id="@+id/friendEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="이메일을 입력하세요"
+        android:inputType="textEmailAddress" />
+
+    <!-- 검색 버튼 -->
+    <Button
+        android:id="@+id/friendSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="검색" />
+
+    <!-- 검색 결과 텍스트뷰 -->
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+
+    <!-- 친구 신청 버튼 -->
+    <Button
+        android:id="@+id/friendRequestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="친구 신청"
+        android:visibility="gone" /> <!-- 처음에는 숨김 상태 -->
+
 
 </LinearLayout>

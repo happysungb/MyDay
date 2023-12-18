@@ -9,11 +9,11 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/greetingTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:fontFamily="@font/snowflake_regular"
-            android:text="김서영님, 안녕하세요."
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />

@@ -122,6 +122,27 @@
                 android:textSize="20sp" />
         </RadioGroup>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/snowflake_regular"
+            android:text="생년월일"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/birth_date"
+            android:layout_width="380dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:inputType="date"
+            android:hint="  YYYY-MM-DD"
+            android:background="@drawable/editview" />
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

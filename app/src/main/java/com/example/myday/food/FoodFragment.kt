@@ -18,6 +18,9 @@ import com.example.myday.R
 import com.example.myday.databinding.FragmentFoodBinding
 import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -80,22 +83,53 @@ class FoodFragment: Fragment() {
                     val body = response.body()
                     if (body != null && response.isSuccessful) {
                         if (body.I2790.RESULT.CODE == "INFO-200") {
-                            Toast.makeText(this@FoodFragment.context, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@FoodFragment.context,
+                                "검색 결과가 없습니다.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         } else {
                             response.body()?.I2790?.row?.let {
                                 searchResult = it
-                            initNutritionRecyclerView(savedInstanceState)
+                                initNutritionRecyclerView(savedInstanceState)
                             }
                         }
                     }
                 }
+
                 override fun onFailure(call: Call<FoodNutrition>, t: Throwable) {
                     Log.v("retrofit", "call failed", t)
                 }
             })
 
         }
+        // Cloud Firestore 인스턴스 초기화
+        val db = FirebaseFirestore.getInstance()
 
+        // 사용자 정보 가져오기
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            val userId = user.uid // 사용자 UID 가져오기
+            db.collection("User")
+                .document(userId) // UID를 사용하여 문서 가져오기
+                .get()
+                .addOnSuccessListener { document: DocumentSnapshot ->
+                    if (document.exists()) {
+                        val userName = document.getString("name") ?: "사용자"
+                        binding.foodGreeting.text = "${userName}님, 오늘은 무엇을 먹었나요?"
+                    } else {
+                        // 문서가 없을 경우 처리
+                        binding.foodGreeting.text = "사용자 정보 없음"
+                    }
+                }
+                .addOnFailureListener { e: Exception ->
+                    // 오류 처리
+                    binding.foodGreeting.text = "사용자 정보를 가져오지 못했습니다: $e"
+                }
+        } else {
+            // 사용자가 로그인되어 있지 않을 경우 처리
+            binding.foodGreeting.text = "로그인되지 않았습니다."
+        }
     }
 
     fun initNutritionRecyclerView(savedInstanceState: Bundle?) {
@@ -109,6 +143,7 @@ class FoodFragment: Fragment() {
                 override fun onNothingSelected(parent: AdapterView<*>) {
                 }
             }
+
             requireActivity().supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 addToBackStack(null)
