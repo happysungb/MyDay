@@ -5,6 +5,7 @@ import com.example.myday.food.Time
 import java.util.Date
 
 data class UserDto(
+    var autoLogin :Boolean? = false,
     var name :String? = null,
     var email :String? = null,
     var password :String? = null,

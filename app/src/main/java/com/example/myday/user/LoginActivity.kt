@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myday.MainActivity
@@ -39,9 +41,15 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // 로그인 성공, 사용자 정보 가져오기
-                    FirebaseFirestore.getInstance().collection("User").document(email)
-                        .get()
-                        .addOnSuccessListener { document ->
+                    val userRef =
+                        auth.currentUser?.let {
+                            FirebaseFirestore.getInstance().collection("User").document(email)
+                        }
+                    val checked: Boolean = findViewById<CheckBox>(R.id.autoLoginCheck).isChecked
+                    Log.v("autolc1", checked.toString())
+                    userRef?.update("autoLogin", checked)
+                    userRef?.get()
+                        ?.addOnSuccessListener { document ->
                             val userName = document.getString("name")
                             val intent = Intent(this, MainActivity::class.java)
                             intent.putExtra("userName", userName)
@@ -49,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         }
-                        .addOnFailureListener {
+                        ?.addOnFailureListener {
                             Toast.makeText(this, "오류: ${it.message}", Toast.LENGTH_SHORT).show()
                         }
                 } else {
