@@ -63,8 +63,52 @@ class FoodFragment: Fragment() {
             }
         }
         spinner.setSelection(0) // 초기값은 아침으로 설정
+    }
 
+    fun initNutritionRecyclerView() {
+        val bundle = Bundle()
+        bundle.putParcelableArrayList("resultList", ArrayList(searchResult))
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                bundle.putString("when", parent.getItemAtPosition(position).toString())
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+            }
+        }
 
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            addToBackStack(null)
+            add<SearchResultFragment>(R.id.food_fragment_container, args = bundle)
+            val mainFragment = requireActivity().findViewById<LinearLayout>(R.id.food_mainlayout)
+            mainFragment.visibility = View.GONE
+            val searchFragment = requireActivity().findViewById<LinearLayout>(R.id.food_fragment_container)
+            searchFragment.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setupViewPager() {
+        val adapter = NutritionFragmentStateAdapter(this)
+        binding.nutritionVp.adapter = adapter
+    }
+
+    private fun setupTabLayoutWithViewPager() {
+        val tabTitles = resources.getStringArray(R.array.`when`)
+        val tabLayout = binding.nutritionTl
+        val viewPager = binding.nutritionVp
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = tabTitles[position]
+        }.attach()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
         binding.foodAddBtn.setOnClickListener {
             this.view?.let { it1 -> hideKeyboard(it1) }
             val input = binding.foodEt.text.toString()
@@ -92,7 +136,7 @@ class FoodFragment: Fragment() {
                         } else {
                             response.body()?.I2790?.row?.let {
                                 searchResult = it
-                                initNutritionRecyclerView(savedInstanceState)
+                                initNutritionRecyclerView()
                             }
                         }
                     }
@@ -132,50 +176,4 @@ class FoodFragment: Fragment() {
             binding.foodGreeting.text = "로그인되지 않았습니다."
         }
     }
-
-    fun initNutritionRecyclerView(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            val bundle = Bundle()
-            bundle.putParcelableArrayList("resultList", ArrayList(searchResult))
-            binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                    bundle.putString("when", parent.getItemAtPosition(position).toString())
-                }
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                }
-            }
-
-            requireActivity().supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                addToBackStack(null)
-                add<SearchResultFragment>(R.id.food_fragment_container, args = bundle)
-                val mainFragment = requireActivity().findViewById<LinearLayout>(R.id.food_mainlayout)
-                mainFragment.visibility = View.GONE
-                val searchFragment = requireActivity().findViewById<LinearLayout>(R.id.food_fragment_container)
-                searchFragment.visibility = View.VISIBLE
-            }
-        }
-    }
-
-    private fun setupViewPager() {
-        val adapter = NutritionFragmentStateAdapter(this)
-        binding.nutritionVp.adapter = adapter
-    }
-
-    private fun setupTabLayoutWithViewPager() {
-        val tabTitles = resources.getStringArray(R.array.`when`)
-        val tabLayout = binding.nutritionTl
-        val viewPager = binding.nutritionVp
-
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = tabTitles[position]
-        }.attach()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
-
-
