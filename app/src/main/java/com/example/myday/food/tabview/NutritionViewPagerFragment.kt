@@ -14,12 +14,17 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
 
-class NutritionViewPagerFragment(private val position: Int): Fragment(){
+class NutritionViewPagerFragment(): Fragment(){
     private var _binding: FoodViewpagerBinding? = null
     private val binding get() = _binding!!
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private val db = FirebaseFirestore.getInstance()
+    private var position = 0
 
+    constructor(position: Int) : this() {
+        this.position = position
+    }
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FoodViewpagerBinding.inflate(inflater, container, false)
         return binding.root
