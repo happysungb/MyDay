@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
 
-class DinnerFragment: Fragment() {
+class BreakfastFragment(private val position: Int): Fragment(){
     private var _binding: FoodViewpagerBinding? = null
     private val binding get() = _binding!!
     private val currentUser = FirebaseAuth.getInstance().currentUser
@@ -31,15 +31,22 @@ class DinnerFragment: Fragment() {
         userInfo.addOnSuccessListener {document ->
             if (document.exists()) {
                 val foodArchives = document.toObject<UserDocument>()?.foodArchive
-                val dinnerFoodLists = foodArchives?.filter{it.period == Time.DINNER}?.map{it.foodList}
+                val breakfastFoodLists = foodArchives?.filter{
+                    it.period == when(position) {
+                        0 -> Time.BREAKFAST
+                        1 -> Time.LUNCH
+                        else -> Time.DINNER
+                    }
+                
+                }?.map{it.foodList}
 
-                val adapterOne = ListOneDinner()
-                adapterOne.selectedList = dinnerFoodLists as MutableList<Selected>
+                val adapterOne = ListOneAdapter()
+                adapterOne.selectedList = breakfastFoodLists as MutableList<Selected>
                 binding.list1.layoutManager = LinearLayoutManager(activity)
                 binding.list1.adapter = adapterOne
 
-                val adapterTwo = ListTwoDinner()
-                adapterTwo.selectedList = dinnerFoodLists
+                val adapterTwo = ListTwoAdapter()
+                adapterTwo.selectedList = breakfastFoodLists
                 binding.list2.layoutManager = LinearLayoutManager(activity)
                 binding.list2.adapter = adapterTwo
             }

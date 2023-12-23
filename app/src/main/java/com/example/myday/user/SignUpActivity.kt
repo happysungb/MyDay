@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myday.databinding.MemberPageBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

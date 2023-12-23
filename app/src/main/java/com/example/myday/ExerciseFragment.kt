@@ -16,12 +16,12 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.selects.select
 
-class ExerciseFragment: Fragment() {
+class ExerciseFragment : Fragment() {
     private var _binding: FragmentExerciseBinding? = null
     private val binding get() = _binding!!
-    private var userWeight: Double = 50.0
     private lateinit var exerciseSpinners: List<Spinner>
     private lateinit var timeSpinners: List<Spinner>
+    private var userWeight: Double = 0.0 // 사용자의 몸무게 변수 추가
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private val db = FirebaseFirestore.getInstance()
 
@@ -58,7 +58,7 @@ class ExerciseFragment: Fragment() {
                     if (document.exists()) {
                         val userName = document.getString("name") ?: "사용자"
                         binding.exerciseGreeting.text = "${userName}님, 오늘은 어떤 운동을 하셨나요?"
-                        userWeight = document.getDouble("weight") ?: 50.0 // 사용자의 몸무게 값 가져오기 (50은 기본값)
+                        userWeight = document.getDouble("weight") ?: 0.0 // 사용자의 몸무게 값 가져오기 (50은 기본값)
                         calculateAndDisplayTotalExerciseTime()
                     } else {
                         // 문서가 없을 경우 처리
@@ -197,13 +197,9 @@ class ExerciseFragment: Fragment() {
         }
     }
 
-
-
-
     private fun addTimeToTotalExercise(timeValue: Int) {
-
+        // 이 부분에 선택된 운동 시간을 전체 운동 시간에 더하는 로직을 추가하세요.
     }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentExerciseBinding.inflate(inflater, container, false)
