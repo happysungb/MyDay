@@ -73,19 +73,7 @@ class HomeFragment : Fragment() {
                         val fatSum = document.get("fatSum").toString().toInt()
                         val spendKcalSum = document.get("spendKcalSum").toString().toInt()
                         val currKcal = kcalSum - spendKcalSum
-                        val score = when ((currKcal / recommendedCalories) * 100) {
-                            in 90..100 -> 100
-                            in 80..89 -> 90
-                            in 70..79 -> 80
-                            in 60..69 -> 70
-                            in 50..59 -> 60
-                            in 40..49 -> 50
-                            in 30..39 -> 40
-                            in 20..29 -> 30
-                            in 10..19 -> 20
-                            in 1..9 -> 10
-                            else -> 0
-                        }
+                        val score = calculateCalorieScore(currKcal, recommendedCalories)
                         val uid = currentUser?.uid
                         uid?.let { db.collection("User").document(it) }?.update("score", score)
 
@@ -169,6 +157,17 @@ class HomeFragment : Fragment() {
                 // 여기서 기본값 또는 예외 처리를 구현하세요.
                 0 // 임시로 0을 반환하도록 수정
             }
+        }
+    }
+
+    private fun calculateCalorieScore(currKcal: Int, recommendedCalories: Int): Int {
+        val difference = Math.abs(currKcal - recommendedCalories)
+        val score = 100 - (difference.toDouble() / recommendedCalories * 100).toInt()
+
+        return when {
+            score > 100 -> 100
+            score < 0 -> 0
+            else -> score
         }
     }
 }
