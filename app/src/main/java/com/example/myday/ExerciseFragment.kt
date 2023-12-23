@@ -9,12 +9,9 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.example.myday.databinding.FragmentExerciseBinding
-import com.example.myday.databinding.FragmentHomeBinding
-import com.google.android.material.internal.ViewUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.selects.select
 
 class ExerciseFragment : Fragment() {
     private var _binding: FragmentExerciseBinding? = null

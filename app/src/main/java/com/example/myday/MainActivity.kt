@@ -10,8 +10,6 @@ import com.example.myday.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 
 import com.example.myday.user.LoginActivity
-import com.google.android.material.internal.ViewUtils
-import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {

@@ -5,10 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myday.databinding.SelectedListOneBinding
 import com.example.myday.food.Selected
+import com.example.myday.food.Time
 
-class ListOneAdapter: RecyclerView.Adapter<ListOneAdapter.MySelectedViewHolder>() {
-    var selectedList = mutableListOf<Selected>()
-    inner class MySelectedViewHolder(private val binding: SelectedListOneBinding): RecyclerView.ViewHolder(binding.root) {
+class ListOneAdapter(private val tabId: Time): RecyclerView.Adapter<ListOneAdapter.MyListOneViewHolder>() {
+    var breakfast = mutableListOf<Selected>()
+    var lunch = mutableListOf<Selected>()
+    var dinner = mutableListOf<Selected>()
+
+    inner class MyListOneViewHolder(private val binding: SelectedListOneBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Selected, position: Int) {
             "${position+1}. ${data.name}".also {binding.selectedFoodName.text = it}
             "${data.kcal}kcal".also { binding.selectedFoodKcal.text = it }
@@ -17,16 +21,29 @@ class ListOneAdapter: RecyclerView.Adapter<ListOneAdapter.MySelectedViewHolder>(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MySelectedViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyListOneViewHolder {
         val binding = SelectedListOneBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MySelectedViewHolder(binding)
+        return MyListOneViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MySelectedViewHolder, position: Int) {
-        holder.bind(selectedList[position], position)
+    override fun onBindViewHolder(holder: MyListOneViewHolder, position: Int) {
+        when (tabId) {
+            Time.BREAKFAST -> holder.bind(breakfast[position], position)
+            Time.LUNCH -> holder.bind(lunch[position], position)
+            else -> holder.bind(dinner[position], position)
+        }
     }
 
     override fun getItemCount(): Int {
-        return selectedList.size
+        return when (tabId) {
+            Time.BREAKFAST -> breakfast.size
+            Time.LUNCH -> lunch.size
+            else -> dinner.size
+        }
     }
+
+    fun updateData() {
+        notifyDataSetChanged()
+    }
+
 }
