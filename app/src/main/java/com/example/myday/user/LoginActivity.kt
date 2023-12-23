@@ -6,10 +6,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myday.HomeFragment
 import com.example.myday.MainActivity
 import com.example.myday.R
 import com.google.firebase.Firebase
@@ -57,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                     // 로그인 성공, 사용자 정보 가져오기
                     val userRef =
                         auth.currentUser?.let {
-                            FirebaseFirestore.getInstance().collection("User").document(email)
+                            FirebaseFirestore.getInstance().collection("User").document(it.uid)
                         }
                     val checked: Boolean = findViewById<CheckBox>(R.id.autoLoginCheck).isChecked
                     Log.v("autolc1", checked.toString())
