@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myday.HomeFragment
 import com.example.myday.MainActivity
 import com.example.myday.R
 import com.google.firebase.Firebase
@@ -34,6 +35,19 @@ class LoginActivity : AppCompatActivity() {
         joinButton.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            FirebaseFirestore.getInstance().collection("User").document(currentUser.uid)
+                .get().addOnSuccessListener { document ->
+                    if (document.getBoolean("autoLogin") == true) {
+                        startActivity(Intent(this, MainActivity::class.java))
+                    }
+                }
         }
     }
     private fun loginUser(email: String, password: String) {
