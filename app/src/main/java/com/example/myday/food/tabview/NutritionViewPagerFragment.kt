@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
 
-class BreakfastFragment(private val position: Int): Fragment(){
+class NutritionViewPagerFragment(private val position: Int): Fragment(){
     private var _binding: FoodViewpagerBinding? = null
     private val binding get() = _binding!!
     private val currentUser = FirebaseAuth.getInstance().currentUser
@@ -27,28 +27,49 @@ class BreakfastFragment(private val position: Int): Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val userInfo = db.collection("User").document(currentUser?.uid.toString()).get()
         userInfo.addOnSuccessListener {document ->
+            val foodArchives = document.toObject<UserDocument>()?.foodArchive
+            val foodLists: MutableList<Selected>
+            val adapterOne: ListOneAdapter
+            val adapterTwo: ListTwoAdapter
             if (document.exists()) {
-                val foodArchives = document.toObject<UserDocument>()?.foodArchive
-                val breakfastFoodLists = foodArchives?.filter{
-                    it.period == when(position) {
-                        0 -> Time.BREAKFAST
-                        1 -> Time.LUNCH
-                        else -> Time.DINNER
+                when(position) {
+                    0 -> {
+                        foodLists = foodArchives?.filter { it.period == Time.BREAKFAST}?.map{it.foodList} as MutableList<Selected>
+                        adapterOne = ListOneAdapter(Time.BREAKFAST)
+                        adapterOne.breakfast = foodLists
+                        binding.list1.layoutManager = LinearLayoutManager(activity)
+                        binding.list1.adapter = adapterOne
+                        adapterTwo = ListTwoAdapter(Time.BREAKFAST)
+                        adapterTwo.breakfast = foodLists
+                        binding.list2.layoutManager = LinearLayoutManager(activity)
+                        binding.list2.adapter = adapterTwo
+                        }
+                    1 -> {
+                        foodLists = foodArchives?.filter { it.period == Time.LUNCH}?.map{it.foodList} as MutableList<Selected>
+                        adapterOne = ListOneAdapter(Time.LUNCH)
+                        adapterOne.lunch = foodLists
+                        binding.list1.layoutManager = LinearLayoutManager(activity)
+                        binding.list1.adapter = adapterOne
+                        adapterTwo = ListTwoAdapter(Time.LUNCH)
+                        adapterTwo.lunch = foodLists
+                        binding.list2.layoutManager = LinearLayoutManager(activity)
+                        binding.list2.adapter = adapterTwo
                     }
-                
-                }?.map{it.foodList}
-
-                val adapterOne = ListOneAdapter()
-                adapterOne.selectedList = breakfastFoodLists as MutableList<Selected>
-                binding.list1.layoutManager = LinearLayoutManager(activity)
-                binding.list1.adapter = adapterOne
-
-                val adapterTwo = ListTwoAdapter()
-                adapterTwo.selectedList = breakfastFoodLists
-                binding.list2.layoutManager = LinearLayoutManager(activity)
-                binding.list2.adapter = adapterTwo
+                    else -> {
+                        foodLists = foodArchives?.filter { it.period == Time.DINNER}?.map{it.foodList} as MutableList<Selected>
+                        adapterOne = ListOneAdapter(Time.DINNER)
+                        adapterOne.dinner = foodLists
+                        binding.list1.layoutManager = LinearLayoutManager(activity)
+                        binding.list1.adapter = adapterOne
+                        adapterTwo = ListTwoAdapter(Time.DINNER)
+                        adapterTwo.dinner = foodLists
+                        binding.list2.layoutManager = LinearLayoutManager(activity)
+                        binding.list2.adapter = adapterTwo
+                    }
+                }
             }
 
         }

@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myday.R
 import com.example.myday.databinding.RecyclerFragmentBinding
+import com.example.myday.food.tabview.ListOneAdapter
+import com.example.myday.food.tabview.ListTwoAdapter
 import com.example.myday.user.FoodArchive
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -68,6 +70,11 @@ class SearchResultFragment: Fragment(), DialogCallback {
                 val fatSum = (document.get("fatSum") as Long).toInt()
                 userRef.update("fatSum", (foodInfo.NUTR_CONT4.toDoubleOrZero() * count + fatSum))
             }
+            val adapter1 = ListOneAdapter(period)
+            adapter1.updateData()
+            val adapter2 = ListTwoAdapter(period)
+            adapter2.updateData()
+
         }
     }
 
