@@ -1,18 +1,14 @@
 package com.example.myday
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import com.example.myday.databinding.FragmentExerciseBinding
-import com.google.android.material.navigation.NavigationView
 
 class ExerciseActivity : AppCompatActivity() {
     private lateinit var binding: FragmentExerciseBinding
